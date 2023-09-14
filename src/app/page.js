@@ -5,7 +5,7 @@ import { Typography } from '@mui/material'
 export default function Home() {
   return (
    <div>
-    <Typography variant="h1">ZENITH</Typography>
+    <Typography variant="h1">ZENITH: Drag and drop</Typography>
    </div>
   )
 }
