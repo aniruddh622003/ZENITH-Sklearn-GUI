@@ -37,4 +37,4 @@ bun full-dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the Next.js app.
-The Flask app is available at [http://localhost:8000](http://localhost:8000).
+The Flask app is available at [http://localhost:3000/api/](http://localhost:3000/api/).
