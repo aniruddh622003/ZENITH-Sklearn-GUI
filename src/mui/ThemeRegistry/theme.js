@@ -12,6 +12,7 @@ const theme = createTheme({
     mode: "light",
     primary: {
       main: "#3a853d",
+      grey: "#f0f0f0",
       contrastThreshold: 1,
     },
     white: {
