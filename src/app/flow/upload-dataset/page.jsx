@@ -6,8 +6,9 @@ const UploadDataset = () => {
   return (
     <div>
       <h1>Upload Dataset</h1>
-      <div className={`${styles.upload_wrapper}`}></div>
-      <Upload />
+      <div className={`${styles.upload_wrapper}`}>
+        <Upload />
+      </div>
     </div>
   );
 };
