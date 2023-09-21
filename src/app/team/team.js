@@ -12,7 +12,7 @@ export const teamDetails = [
   {
     name: "Khushi Gupta",
     sapid: "500086849",
-    role: "FrontEnd Engineer",
+    role: "Frontend Engineer",
     rollNo: "R2142201726",
     spec: "BTech CSE AIML B3 NON-HONORS",
     image: "/Khushi.jpeg",
@@ -22,7 +22,7 @@ export const teamDetails = [
   {
     name: "Aarav Sharma",
     sapid: "500086653",
-    role: "FrontEnd Engineer",
+    role: "Frontend Engineer",
     rollNo: "R2124201639",
     spec: "BTech CSE AIML B3 HONORS",
     image: "/Aarav.jpeg",
@@ -32,7 +32,7 @@ export const teamDetails = [
   {
     name: "Rishi Madan",
     sapid: "500082336",
-    role: "BackEnd Engineer",
+    role: "Backend Engineer",
     rollNo: "R2142201678",
     spec: "BTech CSE AIML B3 HONORS",
     image: "/Rishi.jpeg",

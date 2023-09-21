@@ -1,11 +1,10 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Grid, IconButton } from "@mui/material";
+import { Grid } from "@mui/material";
 import { BsTelephoneForwardFill } from "react-icons/bs";
 import { SiMicrosoftoutlook } from "react-icons/si";
 import Tooltip from "@mui/material/Tooltip";
@@ -22,6 +21,7 @@ export const TeamCard = ({ member }) => {
               height: "100%",
               scale: "0.75",
               translate: "0% -25%",
+              boxShadow: "0px 5px 10px 0px rgba(0,0,0,0.75)",
             }}
             alt={member.name}
           />
@@ -69,38 +69,40 @@ export const TeamCard = ({ member }) => {
             }}
           >
             <Tooltip title={`Call ${member.phone}`}>
-              <a href={`tel:${member.phone}`}></a>
-              <Button
-                variant="outlined"
-                aria-label="Phone"
-                sx={{
-                  // fontSize: "16px",
-                  m: 0,
-                  borderRadius: "50%",
-                  p: "10px",
-                  minWidth: 0,
-                  minHeight: 0,
-                }}
-              >
-                <BsTelephoneForwardFill style={{ fontSize: "16px" }} />
-              </Button>
+              <a href={`tel:${member.phone}`}>
+                <Button
+                  variant="outlined"
+                  aria-label="Phone"
+                  sx={{
+                    // fontSize: "16px",
+                    m: 0,
+                    borderRadius: "50%",
+                    p: "10px",
+                    minWidth: 0,
+                    minHeight: 0,
+                  }}
+                >
+                  <BsTelephoneForwardFill style={{ fontSize: "16px" }} />
+                </Button>
+              </a>
             </Tooltip>
             <Tooltip title={`Mail ${member.email}`}>
-              <a href={`tel:${member.email}`}></a>
-              <Button
-                variant="outlined"
-                aria-label="LinkedIn"
-                sx={{
-                  // fontSize: "16px",
-                  m: 0,
-                  borderRadius: "50%",
-                  p: "10px",
-                  minWidth: 0,
-                  minHeight: 0,
-                }}
-              >
-                <SiMicrosoftoutlook style={{ fontSize: "16px" }} />
-              </Button>
+              <a href={`mailto:${member.email}`}>
+                <Button
+                  variant="outlined"
+                  aria-label="LinkedIn"
+                  sx={{
+                    // fontSize: "16px",
+                    m: 0,
+                    borderRadius: "50%",
+                    p: "10px",
+                    minWidth: 0,
+                    minHeight: 0,
+                  }}
+                >
+                  <SiMicrosoftoutlook style={{ fontSize: "16px" }} />
+                </Button>
+              </a>
             </Tooltip>
           </Box>
         </CardContent>

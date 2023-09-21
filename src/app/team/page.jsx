@@ -1,15 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Container,
-  createTheme,
-  ThemeProvider,
-  Grid,
-  Box,
-  Button,
-  IconButton,
-} from "@mui/material";
+import React from "react";
+import { Typography, Container, Grid, Box, IconButton } from "@mui/material";
 import { teamDetails } from "./team";
 import { TeamCard } from "@/components/TeamCard";
 import { AiOutlineSwapLeft } from "react-icons/ai";
