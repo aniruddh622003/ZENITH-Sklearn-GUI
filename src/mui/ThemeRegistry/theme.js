@@ -13,6 +13,16 @@ const theme = createTheme({
     primary: {
       main: "#3a853d",
       grey: "#f0f0f0",
+      darkGrey: "#aaa",
+      red: "#ff0000",
+      yellow: " #FFFACD",
+      silver: "#C0C0C0",
+      aqua: "#00FFFF",
+      coral: "#E9967A",
+      salmon: "#FFD700",
+      green: " #7CFC00",
+      blue: "	#FFFFF0",
+      bg: "#eee",
       contrastThreshold: 1,
     },
     white: {
