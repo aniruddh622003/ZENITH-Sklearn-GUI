@@ -1,16 +1,10 @@
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { CatchingPokemon } from "@mui/icons-material";
-import Image from "next/image";
+"use client";
+import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
-  return (
+  const pathname = usePathname();
+  return pathname != "/team" ? (
     <AppBar position="fixed">
       <Toolbar>
         {/* <IconButton size="large" edge="start" color="inherit" aria-label="logo">
@@ -31,6 +25,8 @@ const Navbar = () => {
         </Stack>
       </Toolbar>
     </AppBar>
+  ) : (
+    <div></div>
   );
 };
 
