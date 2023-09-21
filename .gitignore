@@ -36,3 +36,5 @@ next-env.d.ts
 
 # Flask
 api/__pycache__/
+api/uploads/
+env/
