@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import styles from "./index.module.css";
 import { Button } from "@mui/material";
 
-const Upload = () => {
+const Upload = ({ onSubmit }) => {
   const {
     acceptedFiles,
     getRootProps,
@@ -16,18 +16,12 @@ const Upload = () => {
     maxFiles: 1,
   });
 
-  useEffect(() => {
-    console.log(acceptedFiles);
-  }, [acceptedFiles]);
-
-  const style = useMemo(
-    () =>
-      `${styles.wrapper} ${isFocused ? styles.focused : ""} ${
-        isDragAccept ? styles.accept : ""
-      } ${isDragReject ? styles.reject : ""}
-            `,
-    [isFocused, isDragAccept, isDragReject]
-  );
+  const style = useMemo(() => {
+    return `${styles.wrapper} ${isFocused ? styles.focused : ""} ${
+      isDragAccept || acceptedFiles.length != 0 ? styles.accepted : ""
+    } ${isDragReject ? styles.rejected : ""}
+            `;
+  }, [isFocused, isDragAccept, isDragReject, acceptedFiles]);
 
   const getFileSize = (size) => {
     if (size < 1024) {
@@ -77,7 +71,9 @@ const Upload = () => {
           </ul>
         </aside>
       </div>
-      <Button variant="contained">Upload</Button>
+      <Button variant="contained" onClick={() => onSubmit(acceptedFiles[0])}>
+        Upload
+      </Button>
     </div>
   );
 };
