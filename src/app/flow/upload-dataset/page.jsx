@@ -13,6 +13,9 @@ const UploadDataset = () => {
 
   return (
     <div className={styles.page}>
+      <head>
+        <title>ZENiTH - Upload Dataset</title>
+      </head>
       <div className={styles.container}>
         <div className={styles.heading}>
           <h1>
