@@ -2,6 +2,7 @@
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { Box } from "@mui/material";
+import { NextLink } from 'next/link';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -21,8 +22,8 @@ const Navbar = () => {
             ZENiTH
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">About Us</Button>
+            <Button color="inherit" component={NextLink} href="/">Home</Button>
+            <Button color="inherit" component={NextLink} href="/team">About Us</Button>
             {/* <Button color="inherit">Log In</Button> */}
           </Stack>
         </Toolbar>
