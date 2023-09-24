@@ -35,7 +35,7 @@ def upload_and_process_file():
         return jsonify({"error": "Invalid file format"}), 400
 
     # in order to track harmful content
-    filename = secure_filename(file.filename)
+    filename = secure_filename("data.csv")
     file_path = os.path.join(app.config['Upload_Folder'], filename)
 
     if os.path.exists(file_path):
