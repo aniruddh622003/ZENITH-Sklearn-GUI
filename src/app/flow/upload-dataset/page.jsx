@@ -2,13 +2,30 @@
 import UploadIcon from "@mui/icons-material/Upload";
 import { ArrowForwardIos } from "@mui/icons-material";
 import Upload from "@/components/Upload";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./index.module.css";
 import { Box, Button } from "@mui/material";
 
 const UploadDataset = () => {
+  useEffect(() => {
+    fetch("/api/healthchecker", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  }, []);
+
   const upload = (file) => {
     console.log(file);
+    const body = new FormData();
+    body.append("file", file);
+
+    fetch("/api/upload_and_process_file", {
+      method: "POST",
+      body,
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
   };
 
   return (

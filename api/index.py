@@ -23,6 +23,10 @@ def healthchecker():
 
 @app.route("/api/upload_and_process_file", methods=["GET","POST"])
 def upload_and_process_file():
+
+    if not os.path.exists(app.config['Upload_Folder']):
+        os.makedirs(app.config['Upload_Folder'])
+
     if 'file' not in request.files:#no file
         return jsonify({"error": "No file part"}), 400
 
