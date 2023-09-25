@@ -7,12 +7,14 @@
   padding: 20px;
   border-width: 2;
   border-radius: 2;
-  border-color: #eeeeee;
+  border-color: #ababab;
   border-style: dashed;
   background-color: #fafafa;
   color: #bdbdbd;
   outline: none;
   transition: border 0.24s ease-in-out;
+  /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2); */
+  border-radius: 20px;
 }
 
 .focused {
