@@ -4,7 +4,14 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import Upload from "@/components/Upload";
 import React, { useEffect } from "react";
 import styles from "./index.module.css";
-import { Alert, Box, Button, Snackbar } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Collapse,
+  Snackbar,
+} from "@mui/material";
 
 const UploadDataset = () => {
   const [snackProgress, setSnackProgress] = React.useState({
@@ -12,18 +19,27 @@ const UploadDataset = () => {
     uploaded: false,
   });
   const [uploaded, setUploaded] = React.useState(false);
+  const [datasetInfo, setDatasetInfo] = React.useState({
+    rows: 0,
+    columns: 0,
+  });
 
   const upload = async (file) => {
     setSnackProgress((prev) => ({ ...prev, uploading: true }));
     const body = new FormData();
     body.append("file", file);
-    await new Promise((r) => setTimeout(r, 2000));
+    // await new Promise((r) => setTimeout(r, 2000));
     await fetch("/api/upload_and_process_file", {
       method: "POST",
       body,
     })
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) =>
+        setDatasetInfo({
+          rows: res.rows,
+          columns: res.columns,
+        })
+      );
     setSnackProgress((prev) => ({ ...prev, uploading: false, uploaded: true }));
     setUploaded(true);
   };
@@ -46,6 +62,21 @@ const UploadDataset = () => {
           className={styles.line}
         ></Box>
         <div className={styles.upload}>
+          <Collapse in={snackProgress.uploaded} sx={{ mb: "20px" }}>
+            <Alert
+              severity="success"
+              sx={{ width: "100%" }}
+              onClose={() => {
+                setSnackProgress((prev) => ({ ...prev, uploaded: false }));
+              }}
+            >
+              <AlertTitle>Dataset Uploaded Successfully</AlertTitle>
+              <p>
+                Dataset Info - Rows: {datasetInfo.rows}, Columns:{" "}
+                {datasetInfo.columns}
+              </p>
+            </Alert>
+          </Collapse>
           <Upload onSubmit={upload} />
         </div>
       </div>
