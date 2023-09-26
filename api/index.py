@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 app = Flask(__name__)
 CORS(app)
 
-Upload_Folder = 'api\\uploads'
+Upload_Folder = 'api//uploads'
 app.config['Upload_Folder'] = Upload_Folder
 
 #checking if extension is allowed

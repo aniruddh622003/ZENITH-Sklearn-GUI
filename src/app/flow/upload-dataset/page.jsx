@@ -4,28 +4,28 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import Upload from "@/components/Upload";
 import React, { useEffect } from "react";
 import styles from "./index.module.css";
-import { Box, Button } from "@mui/material";
+import { Alert, Box, Button, Snackbar } from "@mui/material";
 
 const UploadDataset = () => {
-  useEffect(() => {
-    fetch("/api/healthchecker", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
-  }, []);
+  const [snackProgress, setSnackProgress] = React.useState({
+    uploading: false,
+    uploaded: false,
+  });
+  const [uploaded, setUploaded] = React.useState(false);
 
-  const upload = (file) => {
-    console.log(file);
+  const upload = async (file) => {
+    setSnackProgress((prev) => ({ ...prev, uploading: true }));
     const body = new FormData();
     body.append("file", file);
-
-    fetch("/api/upload_and_process_file", {
+    await new Promise((r) => setTimeout(r, 2000));
+    await fetch("/api/upload_and_process_file", {
       method: "POST",
       body,
     })
       .then((res) => res.json())
       .then((res) => console.log(res));
+    setSnackProgress((prev) => ({ ...prev, uploading: false, uploaded: true }));
+    setUploaded(true);
   };
 
   return (
@@ -53,12 +53,47 @@ const UploadDataset = () => {
         <Button
           variant="outlined"
           color="primary"
-          disabled={true}
+          disabled={!uploaded}
           endIcon={<ArrowForwardIos />}
         >
           Next
         </Button>
       </div>
+      <Snackbar
+        open={snackProgress.uploading}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={() =>
+          setSnackProgress((prev) => ({ ...prev, uploading: false }))
+        }
+      >
+        <Alert
+          onClose={() =>
+            setSnackProgress((prev) => ({ ...prev, uploading: false }))
+          }
+          severity="info"
+          sx={{ width: "100%" }}
+        >
+          Uploading...
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={snackProgress.uploaded}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={() => {
+          setSnackProgress((prev) => ({ ...prev, uploaded: false }));
+        }}
+        autoHideDuration={5000}
+      >
+        <Alert
+          onClose={() => {
+            setSnackProgress((prev) => ({ ...prev, uploaded: false }));
+          }}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Dataset Uploaded
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
