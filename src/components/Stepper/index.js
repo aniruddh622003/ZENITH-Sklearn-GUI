@@ -31,13 +31,6 @@ const StepperComp = ({ steps }) => {
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length ? (
-        <Typography sx={{ mt: 2, mb: 1 }}>
-          All steps completed - you&apos;re finished
-        </Typography>
-      ) : (
-        <div></div>
-      )}
     </Box>
   );
 };
