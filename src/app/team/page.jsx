@@ -2,9 +2,9 @@
 import React from "react";
 import { Typography, Container, Grid, Box, IconButton } from "@mui/material";
 import { teamDetails } from "./team";
-import { TeamCard } from "@/components/TeamCard";
 import { AiOutlineSwapLeft } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { TeamCard } from "@/components/TeamCard";
 
 function Page() {
   const router = useRouter();
