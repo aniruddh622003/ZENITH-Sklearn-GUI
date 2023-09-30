@@ -1,13 +1,14 @@
 import React from "react";
+import StepperComp from "@/components/Stepper";
 
-const FlowLayout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div>
-      Add Stepper Here
+      <StepperComp steps={["Upload Dataset", "Preprocessing", "Model"]} />
       <br />
       {children}
     </div>
   );
 };
 
-export default FlowLayout;
+export default Layout;
