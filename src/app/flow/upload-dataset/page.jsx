@@ -23,9 +23,21 @@ const UploadDataset = () => {
     rows: 0,
     columns: 0,
   });
+  const [err, setErr] = React.useState({
+    error: false,
+    message: "",
+  });
 
   const upload = async (file) => {
+    if (!file) {
+      setErr({
+        error: true,
+        message: "No file selected",
+      });
+      return;
+    }
     setSnackProgress((prev) => ({ ...prev, uploading: true }));
+    // console.log(file ? file.name : "not present");
     const body = new FormData();
     body.append("file", file);
     // await new Promise((r) => setTimeout(r, 2000));
@@ -123,6 +135,25 @@ const UploadDataset = () => {
           sx={{ width: "100%" }}
         >
           Dataset Uploaded
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={err.error}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={() => {
+          setErr((prev) => ({ ...prev, error: false }));
+        }}
+        autoHideDuration={5000}
+      >
+        <Alert
+          onClose={() => {
+            setErr((prev) => ({ ...prev, error: false }));
+          }}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {err.message}
         </Alert>
       </Snackbar>
     </div>
