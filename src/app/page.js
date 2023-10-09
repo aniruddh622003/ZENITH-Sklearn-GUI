@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 import { Box, Button, Typography } from "@mui/material";
+import { NextLink } from "next/link";
 
 export default function Home() {
   return (
@@ -38,6 +39,8 @@ export default function Home() {
           <Button
             variant="outlined"
             color="primary"
+            component={NextLink}
+            href="/flow/upload-dataset"
             // sx={{ marginRight: "1rem" }}
           >
             Get Started
