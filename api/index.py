@@ -26,6 +26,25 @@ def allowed_file(filename):
 def healthchecker():
     return {"status": "success", "message": "Integrate Flask Framework with Next.js"}
 
+
+@app.route("/api/existing-dataset", methods=["GET"])
+def dataset_existing():
+    file_path = os.path.join(app.config['Upload_Folder'], "data.csv")
+
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+        num_rows, num_columns = df.shape
+        return jsonify({
+            "message": "Dataset is present",
+            "filename": "data.csv",
+            "rows": num_rows,
+            "columns": num_columns
+        }) , 200
+
+    return jsonify({"message": "No dataset is present"}), 404
+
+
+        
 # Upload and process file route
 @app.route("/api/upload_and_process_file", methods=["GET","POST"])
 def upload_and_process_file():
