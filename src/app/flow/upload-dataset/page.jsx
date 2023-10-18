@@ -1,9 +1,9 @@
 "use client";
-import UploadIcon from "@mui/icons-material/Upload";
 import { ArrowForwardIos } from "@mui/icons-material";
 import Upload from "@/components/Upload";
 import React, { useEffect } from "react";
-import styles from "./index.module.css";
+import Grid from '@mui/material/Grid';
+
 import {
   Alert,
   AlertTitle,
@@ -11,6 +11,7 @@ import {
   Button,
   Collapse,
   Snackbar,
+  Typography,
 } from "@mui/material";
 
 const UploadDataset = () => {
@@ -57,23 +58,15 @@ const UploadDataset = () => {
   };
 
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.heading}>
-          <h1>Upload Dataset</h1>
-          <p className={styles.quote}>
-            Data is a precious thing and will last longer than the systems
-            themselves.
-          </p>
-          <p className={styles.quote}>- Tim Berners-Lee</p>
-        </div>
-        <Box
-          sx={{
-            backgroundColor: "primary.main",
-          }}
-          className={styles.line}
-        ></Box>
-        <div className={styles.upload}>
+    <Grid sx={{height: '100%'}}>
+      <Grid container sx={{ alignItems: 'center', height: '90%'}}>
+        <Grid sx={{flex: '1', paddingLeft: '5rem', paddingRight: '2rem'}}>
+          <Typography variant="h2">Upload Dataset</Typography>
+          <Typography variant="h5">Data is a precious thing and will last longer than the systems themselves.</Typography>
+          <Typography variant="h5" align="right">- Tim Berners-Lee</Typography>
+        </Grid>
+        <Box sx={{backgroundColor: "primary.main", width: "6px", height: "75%", borderRadius: '3px'}}></Box>
+        <Grid sx={{flex: '1', paddingLeft: '2rem', paddingRight: '5rem'}}>
           <Collapse in={snackProgress.uploaded} sx={{ mb: "20px" }}>
             <Alert
               severity="success"
@@ -90,9 +83,9 @@ const UploadDataset = () => {
             </Alert>
           </Collapse>
           <Upload onSubmit={upload} />
-        </div>
-      </div>
-      <div className={styles.next}>
+        </Grid>
+      </Grid>
+      <Grid sx={{display: 'flex', justifyContent: 'end', paddingRight: '5rem'}}>
         <Button
           variant="outlined"
           color="primary"
@@ -101,7 +94,7 @@ const UploadDataset = () => {
         >
           Next
         </Button>
-      </div>
+      </Grid>
       <Snackbar
         open={snackProgress.uploading}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -156,7 +149,7 @@ const UploadDataset = () => {
           {err.message}
         </Alert>
       </Snackbar>
-    </div>
+    </Grid>
   );
 };
 
