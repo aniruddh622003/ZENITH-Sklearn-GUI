@@ -10,12 +10,13 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { AiFillCloseCircle, AiFillDownCircle } from "react-icons/ai";
+import styles from "./index.module.css";
 
 const NodePanel = () => {
-  const [col, setCol] = useState(false);
+  const [col, setCol] = useState(true);
 
   return (
-    <Card sx={{ p: 2 }}>
+    <Card sx={{ p: 2, width: "25vw" }}>
       <Grid
         container
         sx={{
@@ -25,18 +26,22 @@ const NodePanel = () => {
         }}
       >
         <Grid item xs={10}>
-          <Typography variant="h6">Node Panel</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "800" }}>
+            Node Panel
+          </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2} sx={{ display: "flex", justifyContent: "end" }}>
           <IconButton onClick={() => setCol(!col)}>
             {!col ? <AiFillDownCircle /> : <AiFillCloseCircle />}
           </IconButton>
         </Grid>
       </Grid>
       <Collapse in={col}>
-        {preprocessNodes.map((node) => (
-          <PanelItem key={node.id} />
-        ))}
+        <Box sx={{ maxHeight: "45vh", overflowY: "auto" }}>
+          {preprocessNodes.map((node) => (
+            <PanelItem key={node.id} />
+          ))}
+        </Box>
       </Collapse>
     </Card>
   );
@@ -51,8 +56,8 @@ const PanelItem = () => {
   };
   return (
     <Box
-      sx={{ p: 1 }}
-      onDragStart={(event) => onDragStart(event, "default")}
+      sx={{ p: 1, m: 1, border: "1px solid black", borderRadius: "5px" }}
+      onDragStart={(event) => onDragStart(event, "panel item")}
       draggable
     >
       <Typography variant="h6">Panel Item</Typography>

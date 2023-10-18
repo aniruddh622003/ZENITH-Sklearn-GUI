@@ -14,22 +14,7 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import NodePanel from "./panel";
 
-const initialNodes = [
-  {
-    id: "1",
-    position: { x: 0, y: 0 },
-    data: { label: "1" },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "2",
-    position: { x: 0, y: 100 },
-    data: { label: "2" },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-];
+const initialNodes = [];
 
 let id = 3;
 const getId = () => `${id++}`;
@@ -76,7 +61,7 @@ export default function App() {
         position,
         sourcePosition: "right",
         targetPosition: "left",
-        data: { label: `${type} node` },
+        data: { label: `${type}` },
       };
 
       setNodes((nds) => nds.concat(newNode));
