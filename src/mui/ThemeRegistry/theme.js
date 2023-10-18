@@ -2,7 +2,7 @@ import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+  weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -31,7 +31,18 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: [
+      roboto.style.fontFamily,
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
   components: {
     MuiAlert: {
