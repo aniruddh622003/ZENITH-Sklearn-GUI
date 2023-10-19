@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import styles from "./page.module.css";
 import { Box, Button, Typography } from "@mui/material";
 import { NextLink } from "next/link";
 
@@ -9,8 +8,7 @@ export default function Home() {
       sx={{
         maxHeight: "100vh",
         minHeight: "calc(100vh - 70px)",
-        background:
-          "radial-gradient(circle, rgba(104,228,152,0.4), rgba(255,255,255,1))",
+        background: "primary.bg_gradient",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
