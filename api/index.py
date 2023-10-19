@@ -2,86 +2,19 @@ import os
 import pandas as pd
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from werkzeug.utils import secure_filename  
+from werkzeug.utils import secure_filename 
+import json 
 
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
 app = Flask(__name__)
 CORS(app)
 
-available_preprocess = [
-    {
-        "name": "StandardScaler",
-        "params": [
-            {"name": "copy", "default": "True"},
-            {"name": "with_mean", "default": "True"},
-            {"name": "with_std", "default": "True"}
-        ]
-    },
-    {
-        "name": "MinMaxScaler",
-        "params": [
-            {"name": "feature_range", "default": "(0, 1)"},
-            {"name": "copy", "default": "True"}
-        ]
-    },
-    {
-        "name": "RobustScaler",
-        "params": [
-            {"name": "with_centering", "default": "True"},
-            {"name": "with_scaling", "default": "True"},
-            {"name": "copy", "default": "True"}
-        ]
-    },
-    {
-        "name": "Normalizer",
-        "params": [
-            {"name": "norm", "default": "l2"},
-            {"name": "copy", "default": "True"}
-        ]
-    },
-    {
-        "name": "Imputer",
-        "params": [
-            {"name": "missing_values", "default": "'NaN'"},
-            {"name": "strategy", "default": "'mean'"},
-            {"name": "fill_value", "default": "None"}
-        ]
-    },
-    {
-        "name": "OneHotEncoder",
-        "params": [
-            {"name": "handle_unknown", "default": "'ignore'"},
-            {"name": "categories", "default": "'auto'"},
-            {"name": "sparse", "default": "True"}
-        ]
-    },
-    {
-        "name": "OrdinalEncoder",
-        "params": [
-            {"name": "categories", "default": "'auto'"}
-        ]
-    },
-    {
-        "name": "LabelEncoder",
-        "params": [
-            {"name": "categories", "default": "'auto'"}
-        ]
-    },
-    {
-        "name": "PolynomialFeatures",
-        "params": [
-            {"name": "degree", "default": "2"},
-            {"name": "interaction_only", "default": "False"},
-            {"name": "include_bias", "default": "True"}
-        ]
-    }
-]
-
 
 @app.route("/api/available-preprocess", methods=["GET"])
 def get_available_preprocess():
-    return jsonify(available_preprocess)
+    f = open("api/available-preprocess.json")
+    return json.load(f)
 
 
 Upload_Folder = 'api//uploads'
