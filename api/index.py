@@ -2,12 +2,20 @@ import os
 import pandas as pd
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from werkzeug.utils import secure_filename  
+from werkzeug.utils import secure_filename 
+import json 
 
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
 app = Flask(__name__)
 CORS(app)
+
+
+@app.route("/api/available-preprocess", methods=["GET"])
+def get_available_preprocess():
+    f = open("api/available-preprocess.json")
+    return json.load(f)
+
 
 Upload_Folder = 'api//uploads'
 app.config['Upload_Folder'] = Upload_Folder
