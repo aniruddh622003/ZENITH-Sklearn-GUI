@@ -28,7 +28,11 @@ const UploadDataset = () => {
     error: false,
     message: "",
   });
-
+  const handleNextClick = () => {
+    if (uploaded) {
+      window.location.href = "/flow/preprocess";
+    }
+  };
   const upload = async (file) => {
     if (!file) {
       setErr({
@@ -90,6 +94,7 @@ const UploadDataset = () => {
           variant="outlined"
           color="primary"
           disabled={!uploaded}
+          onClick={handleNextClick}
           endIcon={<ArrowForwardIos />}
         >
           Next
