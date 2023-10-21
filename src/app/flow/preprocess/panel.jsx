@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { AiFillCloseCircle, AiFillDownCircle } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillDownCircle, AiFillUpCircle } from "react-icons/ai";
 import styles from "./index.module.css";
 
 const NodePanel = () => {
   const [col, setCol] = useState(true);
 
   return (
-    <Card sx={{ p: 2, width: "25vw" }}>
+    <Card sx={{ p: 2, width: "25vw", borderRadius: "8px" }}>
       <Grid
         container
         sx={{
@@ -26,13 +26,13 @@ const NodePanel = () => {
         }}
       >
         <Grid item xs={10}>
-          <Typography variant="h6" sx={{ fontWeight: "800" }}>
+          <Typography variant="h6" sx={{ fontWeight: "600" }}>
             Node Panel
           </Typography>
         </Grid>
         <Grid item xs={2} sx={{ display: "flex", justifyContent: "end" }}>
           <IconButton onClick={() => setCol(!col)}>
-            {!col ? <AiFillDownCircle /> : <AiFillCloseCircle />}
+            {!col ? <AiFillDownCircle /> : <AiFillUpCircle />}
           </IconButton>
         </Grid>
       </Grid>
@@ -55,12 +55,15 @@ const PanelItem = () => {
     event.dataTransfer.effectAllowed = "move";
   };
   return (
+    // this is dropdown list item
     <Box
-      sx={{ p: 1, m: 1, border: "1px solid black", borderRadius: "5px" }}
+      sx={{ p: 1, m: 1, border: "1px solid green", borderRadius: "5px", transform: 'scale(0.98)',
+      ':hover': {backgroundColor: 'primary.lightGreen', boxShadow: '0 0 10px green', border: "0", transform: 'scale(1.0)'}, 
+      }}
       onDragStart={(event) => onDragStart(event, "panel item")}
       draggable
     >
-      <Typography variant="h6">Panel Item</Typography>
+      <Typography variant="h6" align="center"sx={{ fontWeight: '300', ':hover': {fontWeight: '400'}}}>Panel Item</Typography>
     </Box>
   );
 };
