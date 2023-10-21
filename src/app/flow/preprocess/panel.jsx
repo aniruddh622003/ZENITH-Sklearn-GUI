@@ -16,7 +16,7 @@ const NodePanel = () => {
   const [col, setCol] = useState(true);
 
   return (
-    <Card sx={{ p: 2, width: "25vw", borderRadius: "8px" }}>
+    <Card sx={{ p: 2, width: "20vw", borderRadius: "8px" }}>
       <Grid
         container
         sx={{
@@ -26,7 +26,7 @@ const NodePanel = () => {
         }}
       >
         <Grid item xs={10}>
-          <Typography variant="h6" sx={{ fontWeight: "600" }}>
+          <Typography variant="h6" sx={{ fontWeight: "400" }}>
             Node Panel
           </Typography>
         </Grid>
