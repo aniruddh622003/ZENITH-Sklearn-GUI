@@ -57,13 +57,13 @@ const PanelItem = () => {
   return (
     // this is dropdown list item
     <Box
-      sx={{ p: 1, m: 1, border: "1px solid green", borderRadius: "5px", transform: 'scale(0.98)',
+      sx={{ p: 0, m: 1, border: "1px solid green", borderRadius: "5px", transform: 'scale(0.98)',
       ':hover': {backgroundColor: 'primary.lightGreen', boxShadow: '0 0 10px green', border: "0", transform: 'scale(1.0)'}, 
       }}
       onDragStart={(event) => onDragStart(event, "panel item")}
       draggable
     >
-      <Typography variant="h6" align="center"sx={{ fontWeight: '300', ':hover': {fontWeight: '400'}}}>Panel Item</Typography>
+      <Typography variant="h6" align="center"sx={{ p: 1, fontWeight: '300', ':hover': {fontWeight: '400'}}}>Panel Item</Typography>
     </Box>
   );
 };
