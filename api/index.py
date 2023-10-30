@@ -17,6 +17,12 @@ def get_available_preprocess():
     return json.load(f)
 
 
+@app.route("/api/available-models", methods=["GET"])
+def get_available_models():
+    g = open("api/available-model.json")
+    return json.load(g)
+
+
 Upload_Folder = 'api//uploads'
 app.config['Upload_Folder'] = Upload_Folder
 
