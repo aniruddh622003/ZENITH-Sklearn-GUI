@@ -8,7 +8,9 @@ const Preprocess = () => {
       sx={{
         backgroundColor: "white.main",
         border: "1px solid #ccc",
-        boxShadow: 3,
+        borderRadius: "15px",
+        // boxShadow: 3,
+        boxShadow: '0 0 20px #ccffde',
         height: "100%",
         m: 4,
         mt: 0,

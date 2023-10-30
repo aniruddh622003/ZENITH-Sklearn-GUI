@@ -6,8 +6,7 @@ const Layout = ({ children }) => {
     <div
       style={{
         height: "calc(100vh - 70px)",
-        background:
-          "radial-gradient(circle,rgba(104, 228, 152, 0.4),rgba(255, 255, 255, 1))",
+        backgroundColor: "primary.main",
         display: "flex",
         flexDirection: "column",
       }}
