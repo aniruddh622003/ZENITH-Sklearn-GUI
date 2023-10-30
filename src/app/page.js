@@ -8,7 +8,8 @@ export default function Home() {
       sx={{
         maxHeight: "100vh",
         minHeight: "calc(100vh - 70px)",
-        background: "primary.bg_gradient",
+        background:
+          "radial-gradient(circle,rgba(104, 228, 152, 0.4),rgba(255, 255, 255, 1))",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

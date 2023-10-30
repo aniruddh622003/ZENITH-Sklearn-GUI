@@ -24,7 +24,6 @@ const theme = createTheme({
       blue: "	#FFFFF0",
       lightGreen: "#c9ffc4",
       bg: "#eee",
-      bg_gradient: "radial-gradient(circle, rgba(104,228,152,0.4), rgba(255,255,255,1))",
       contrastThreshold: 1,
     },
     white: {
