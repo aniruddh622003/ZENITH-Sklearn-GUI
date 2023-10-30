@@ -1,10 +1,10 @@
 {
-    "available-preprocess": {
+    "available-model": {
         "Linear Regression": {
             "Task": "Regression",
             "Data": "Supervised, numerical data",
             "Parameters": {
-                "fit_intercept": "bool",
+                "fit_intercept": "bool",    
                 "positive": "bool",
                 "copy_X": "bool",
                 "n_jobs": "int"
