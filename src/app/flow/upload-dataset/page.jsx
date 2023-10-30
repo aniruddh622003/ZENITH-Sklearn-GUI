@@ -30,7 +30,7 @@ const UploadDataset = () => {
     message: "",
   });
 
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(false);
   const fetchInfo = () => {
     return fetch("/api/existing-dataset");
@@ -57,67 +57,6 @@ const UploadDataset = () => {
     setShowModal(false);
   };
 
-  const modalContent = (
-    <Box
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: 500,
-        bgcolor: "primary.bg",
-        border: "2px solid #000",
-        boxShadow: 30,
-        borderRadius: "20px",
-        p: 3.5,
-      }}
-    >
-      <Typography variant="h4" p="2px" sx={{ fontWeight: "bold" }}>
-        Dataset Already Exists
-      </Typography>
-      <hr
-        style={{
-          margin: "10px 0",
-          height: "2px",
-          bgcolor: "primary.bg",
-          pt: "2px",
-        }}
-      />
-      <Typography p="3px">
-        Dataset:<span style={{ fontWeight: "bold" }}>{data.filename}</span>
-      </Typography>
-      <Typography pb="7px">
-        Rows: <span style={{ fontWeight: "bold" }}>{data.rows}&nbsp;</span>
-        <br />
-        Columns: <span style={{ fontWeight: "bold" }}>{data.columns}</span>
-      </Typography>
-      <hr
-        style={{
-          margin: "7px 0",
-          paddingBottom: "5px",
-          height: "2px",
-          bgcolor: "primary.bg",
-        }}
-      />
-      <Button
-        variant="contained"
-        color="error"
-        onClick={closeModal}
-        sx={{ mr: "15px" }}
-      >
-        Overwrite
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          window.location.href = "/flow/preprocess";
-        }}
-      >
-        Navigate
-      </Button>
-    </Box>
-  );
   const handleNextClick = () => {
     if (uploaded) {
       window.location.href = "/flow/preprocess";
@@ -258,7 +197,66 @@ const UploadDataset = () => {
           {err.message}
         </Alert>
       </Snackbar>
-      <Modal open={showModal}>{modalContent}</Modal>
+      <Modal open={showModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 500,
+            bgcolor: "primary.bg",
+            boxShadow: 30,
+            borderRadius: "20px",
+            p: 3.5,
+          }}
+        >
+          <Typography variant="h4" p="2px" sx={{ fontWeight: "bold" }}>
+            Dataset Already Exists
+          </Typography>
+          <hr
+            style={{
+              margin: "10px 0",
+              height: "2px",
+              bgcolor: "primary.bg",
+              pt: "2px",
+            }}
+          />
+          <Typography p="3px">
+            Dataset:<span style={{ fontWeight: "bold" }}>{data.filename}</span>
+          </Typography>
+          <Typography pb="7px">
+            Rows: <span style={{ fontWeight: "bold" }}>{data.rows}&nbsp;</span>
+            <br />
+            Columns: <span style={{ fontWeight: "bold" }}>{data.columns}</span>
+          </Typography>
+          <hr
+            style={{
+              margin: "7px 0",
+              paddingBottom: "5px",
+              height: "2px",
+              bgcolor: "primary.bg",
+            }}
+          />
+          <Button
+            variant="contained"
+            color="error"
+            onClick={closeModal}
+            sx={{ mr: "15px" }}
+          >
+            Overwrite
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              window.location.href = "/flow/preprocess";
+            }}
+          >
+            Next Step
+          </Button>
+        </Box>
+      </Modal>
     </Grid>
   );
 };
