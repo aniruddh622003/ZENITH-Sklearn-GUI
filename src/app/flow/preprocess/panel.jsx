@@ -1,19 +1,30 @@
 "use client";
-import { preprocessNodes } from "@/utils/preprocess-nodes";
+// import { preprocessNodes } from "@/utils/preprocess-nodes";
 import {
   Box,
   Card,
+  CircularProgress,
   Collapse,
   Grid,
   IconButton,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillCloseCircle, AiFillDownCircle } from "react-icons/ai";
 import styles from "./index.module.css";
 
 const NodePanel = () => {
-  const [col, setCol] = useState(true);
+  const [col, setCol] = useState(false);
+  const [preprocessNodes, setPreprocessNodes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await fetch("/api/available-preprocess");
+      const body = await resp.json();
+      setPreprocessNodes(body["available-preprocess"]);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Card sx={{ p: 2, width: "25vw" }}>
@@ -37,11 +48,18 @@ const NodePanel = () => {
         </Grid>
       </Grid>
       <Collapse in={col}>
-        <Box sx={{ maxHeight: "45vh", overflowY: "auto" }}>
-          {preprocessNodes.map((node) => (
-            <PanelItem key={node.id} />
-          ))}
-        </Box>
+        {preprocessNodes.length === 0 && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
+        )}
+        {preprocessNodes.length > 0 && (
+          <Box sx={{ maxHeight: "45vh", overflowY: "auto" }}>
+            {preprocessNodes.map((node, idx) => (
+              <PanelItem key={`pre-node-${idx}`} name={node.name} data={node} />
+            ))}
+          </Box>
+        )}
       </Collapse>
     </Card>
   );
@@ -49,7 +67,7 @@ const NodePanel = () => {
 
 export default NodePanel;
 
-const PanelItem = () => {
+const PanelItem = ({ name, data }) => {
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData("application/reactflow", nodeType);
     event.dataTransfer.effectAllowed = "move";
@@ -57,10 +75,10 @@ const PanelItem = () => {
   return (
     <Box
       sx={{ p: 1, m: 1, border: "1px solid black", borderRadius: "5px" }}
-      onDragStart={(event) => onDragStart(event, "panel item")}
+      onDragStart={(event) => onDragStart(event, JSON.stringify(data))}
       draggable
     >
-      <Typography variant="h6">Panel Item</Typography>
+      <Typography variant="h6">{name}</Typography>
     </Box>
   );
 };
