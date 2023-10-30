@@ -110,4 +110,4 @@ def apply_preprocessing(df, selected_preprocessing):
 
 df = apply_preprocessing(df, selected_preprocessing)
 print(df.describe())
-# df.to_csv('./uploads/data_preprocessed.csv', index=False)
+df.to_csv('api/uploads/data_preprocessed.csv', index=False)
