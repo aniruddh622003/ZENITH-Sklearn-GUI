@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { AiFillCloseCircle, AiFillDownCircle, , AiFillUpCircle } from "react-icons/ai";
+import {
+  AiFillCloseCircle,
+  AiFillDownCircle,
+  AiFillUpCircle,
+} from "react-icons/ai";
 import styles from "./index.module.css";
 
 const NodePanel = () => {
@@ -75,15 +79,29 @@ const PanelItem = ({ name, data }) => {
   return (
     // this is dropdown list item
     <Box
-
-      sx={{ p: 0, m: 1, border: "1px solid green", borderRadius: "5px", transform: 'scale(0.98)',
-      ':hover': {backgroundColor: 'primary.lightGreen', boxShadow: '0 0 10px green', border: "0", transform: 'scale(1.0)'}, 
+      sx={{
+        p: 0,
+        m: 1,
+        border: "1px solid green",
+        borderRadius: "5px",
+        transform: "scale(0.98)",
+        ":hover": {
+          backgroundColor: "primary.lightGreen",
+          boxShadow: "0 0 10px green",
+          border: "0",
+          transform: "scale(1.0)",
+        },
       }}
       onDragStart={(event) => onDragStart(event, JSON.stringify(data))}
       draggable
     >
-      <Typography variant="h6" align="center"sx={{ p: 1, fontWeight: '300', ':hover': {fontWeight: '400'}}}>{name}</Typography>
-
+      <Typography
+        variant="h6"
+        align="center"
+        sx={{ p: 1, fontWeight: "300", ":hover": { fontWeight: "400" } }}
+      >
+        {name}
+      </Typography>
     </Box>
   );
 };
