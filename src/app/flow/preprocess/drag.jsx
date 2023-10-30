@@ -9,17 +9,36 @@ import ReactFlow, {
   addEdge,
   Panel,
   ReactFlowProvider,
+  getOutgoers,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
 import NodePanel from "./panel";
+import { Button } from "@mui/material";
 
-const initialNodes = [];
+const initialNodes = [
+  {
+    id: "1",
+    type: "input",
+    position: { x: -500, y: 0 },
+    sourcePosition: "right",
+    targetPosition: "left",
+    data: { label: "Raw Data" },
+  },
+  {
+    id: "2",
+    type: "output",
+    position: { x: 500, y: 0 },
+    sourcePosition: "right",
+    targetPosition: "left",
+    data: { label: "Processed Data" },
+  },
+];
 
 let id = 3;
 const getId = () => `${id++}`;
 
-const initialEdges = [{ id: "e1-2", source: "1", target: "2", animated: true }];
+const initialEdges = [];
 
 export default function App() {
   const reactFlowWrapper = useRef(null);
@@ -44,12 +63,15 @@ export default function App() {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData("application/reactflow");
+      const type = JSON.parse(
+        event.dataTransfer.getData("application/reactflow")
+      );
+      console.log(type);
 
       // check if the dropped element is valid
-      if (typeof type === "undefined" || !type) {
-        return;
-      }
+      // if (typeof type === "undefined" || !type) {
+      //   return;
+      // }
 
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
@@ -57,17 +79,41 @@ export default function App() {
       });
       const newNode = {
         id: getId(),
-        type,
+        type: "default",
         position,
         sourcePosition: "right",
         targetPosition: "left",
-        data: { label: `${type}` },
+        data: { label: `${type?.name}`, params: type?.params },
       };
+      console.log(newNode);
 
       setNodes((nds) => nds.concat(newNode));
     },
     [reactFlowInstance]
   );
+
+  const startPreProcess = async () => {
+    const outnodes = [];
+    let n = nodes[0];
+    outnodes.push({ name: n?.data?.label, params: n.params ?? "" });
+    while (getOutgoers(n, nodes, edges).length > 0) {
+      const out = getOutgoers(n, nodes, edges);
+
+      outnodes.push({
+        name: out[0]?.data?.label,
+        params: out[0]?.data?.params ?? "",
+      });
+      n = out[0];
+    }
+    console.log(outnodes);
+    await fetch("/api/preprocess", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nodes: outnodes }),
+    });
+  };
 
   return (
     <ReactFlowProvider>
@@ -88,6 +134,13 @@ export default function App() {
           <Background variant="dots" gap={12} size={1} />
           <Panel>
             <NodePanel />
+            <Button
+              onClick={startPreProcess}
+              variant="contained"
+              sx={{ width: "100%", mt: "10px" }}
+            >
+              Submit
+            </Button>
           </Panel>
         </ReactFlow>
       </div>
