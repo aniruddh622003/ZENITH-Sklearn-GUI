@@ -101,7 +101,14 @@ export default function App() {
 
       outnodes.push({
         name: out[0]?.data?.label,
-        params: out[0]?.data?.params ?? "",
+        params: out[0]?.data?.params?.map(ele => {
+          let out = {
+          ...ele,
+          value: ele.default
+        }
+        delete out.default
+        return out
+      }) ?? "",
       });
       n = out[0];
     }
