@@ -206,7 +206,8 @@ const UploadDataset = () => {
             transform: "translate(-50%, -50%)",
             width: 500,
             bgcolor: "primary.bg",
-            boxShadow: 30,
+            border: "0",
+            outline: 0,
             borderRadius: "20px",
             p: 3.5,
           }}
@@ -232,8 +233,7 @@ const UploadDataset = () => {
           </Typography>
           <hr
             style={{
-              margin: "7px 0",
-              paddingBottom: "5px",
+              margin: "7px 0 15px 0",
               height: "2px",
               bgcolor: "primary.bg",
             }}
