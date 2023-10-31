@@ -26,10 +26,10 @@ def preprocess_data():
     try:
         preprocessing_pipeline = request.get_json()
         if preprocessing_pipeline['nodes'][-1]['name'] == 'Processed Data':
-            preprocessed_data = apply_pipeline(preprocessing_pipeline['nodes'][1:-1])
+            apply_pipeline(preprocessing_pipeline['nodes'][1:-1])
         else:
-            preprocessed_data = apply_pipeline(preprocessing_pipeline['nodes'][1:]) # this should be error as processed data node is not connected to anything
-        return preprocessed_data.to_json(orient='records')
+            apply_pipeline(preprocessing_pipeline['nodes'][1:]) # this should be error as processed data node is not connected to anything
+        return jsonify({"message": "Sucessfully Pre-processed Data"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
