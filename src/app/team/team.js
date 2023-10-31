@@ -33,7 +33,7 @@ export const teamDetails = [
     name: "Rishi Madan",
     sapid: "500082336",
     role: "Backend Engineer",
-    rollNo: "R2142201678",
+    rollNo: "R2142201672",
     spec: "BTech CSE AIML B3 HONORS",
     image: "/Rishi.jpeg",
     phone: "8130265254",
