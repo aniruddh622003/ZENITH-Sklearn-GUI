@@ -24,7 +24,7 @@ preprocess_dtype_req = {
     'OneHotEncoder': [np.dtype('object')],
     'OrdinalEncoder': [np.dtype('object')],
     'PolynomialFeatures': [np.dtype('int'), np.dtype('float')],
-    'Imputer': [np.dtype('int'), np.dtype('float')],
+    'SimpleImputer': [np.dtype('int'), np.dtype('float')],
     'StandardScaler': [np.dtype('int'), np.dtype('float')],
     'MinMaxScaler': [np.dtype('int'), np.dtype('float')],
     'RobustScaler': [np.dtype('int'), np.dtype('float')],
@@ -33,6 +33,8 @@ preprocess_dtype_req = {
 
 # this function converts the value to the specified dtype
 def convert_dtype(value, dtype):
+    if value == 'None':
+        return None
     if dtype == 'int':
         return int(value)
 
@@ -75,6 +77,7 @@ def apply_preprocessing(df, selected_preprocessing):
     return df
 
 def apply_pipeline(preprocess_pipeline):
+    print(preprocess_pipeline)
     df = pd.read_csv('api/uploads/data.csv')
     df = apply_preprocessing(df, preprocess_pipeline)
     df.to_csv('api/uploads/data_preprocessed.csv', index=False)

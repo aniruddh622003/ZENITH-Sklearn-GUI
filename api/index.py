@@ -25,8 +25,10 @@ def get_available_preprocess():
 def preprocess_data():
     try:
         preprocessing_pipeline = request.get_json()
-        raw_data = pd.read_csv('api/uploads/data.csv')
-        preprocessed_data = apply_preprocessing(raw_data, preprocessing_pipeline)
+        if preprocessing_pipeline['nodes'][-1]['name'] == 'Processed Data':
+            preprocessed_data = apply_pipeline(preprocessing_pipeline['nodes'][1:-1])
+        else:
+            preprocessed_data = apply_pipeline(preprocessing_pipeline['nodes'][1:]) # this should be error as processed data node is not connected to anything
         return preprocessed_data.to_json(orient='records')
     except Exception as e:
         return jsonify({"error": str(e)}), 500

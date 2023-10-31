@@ -20,7 +20,6 @@
             "Parameters": {
                 "C": "float",
                 "penalty": "str",
-                "solver": "str",
                 "dual": "bool",
                 "tol": "float",
                 "fit_intercept": "bool",

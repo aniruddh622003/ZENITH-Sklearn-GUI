@@ -1,5 +1,3 @@
-# this is for manual testing only
-# actual data will come from frontend by user input
 preprocess_pipeline = [
     {
         "name": "LabelEncoder",
