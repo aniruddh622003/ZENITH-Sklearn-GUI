@@ -1,9 +1,46 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import ComboBox from "../../../components/AutoComplete";
 import { Grid, Box, Button } from "@mui/material";
 import TextBox from "@/components/TextBox";
+// import {
+//   RadioGroup,
+//   FormControl,
+//   FormLabel,
+//   FormControlLabel,
+// } from "@mui/material";
+
+const Parameters = () => {
+  const [data, setData] = useState(null);
+  // const [value, setValue] = useState("true");
+
+  // const handleChange = (event) => {
+  //   setValue(event.target.value);
+  // };
+
+  useEffect(() => {
+    async function fetchParam() {
+      try {
+        const resp = await fetch("/api/available-models");
+        console.log(resp.status);
+        if (resp.status == 200) {
+          let dataF = await resp.json();
+          console.log(dataF);
+          setData(dataF);
+        } else {
+          //error
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchParam();
+  }, []);
+  return data;
+};
 
 const ModelPage = () => {
+  const fetchedData = Parameters();
   return (
     <Grid container spacing={4}>
       <Grid item xs={6}>
@@ -45,14 +82,44 @@ const ModelPage = () => {
           width="100%"
           pr="50px"
         >
-          <TextBox sx={{ height: "100%", width: "100%" }} />
-          <Box mb="10px"></Box>
-          <TextBox sx={{ height: "100%", width: "100%" }} />
-          <Box mb="10px"></Box>
-          <TextBox sx={{ height: "100%", width: "100%" }} />
-          <Box mb="10px"></Box>
-          <TextBox sx={{ height: "100%", width: "100%" }} />
-          <Box mb="10px"></Box>
+          {fetchedData &&
+            fetchedData["available-preprocess"].map((model) => (
+              <div key={model.name}>
+                {model.params.map((param) =>
+                  param.type == "int" || param.type == "float" ? (
+                    <div key={param.name}>
+                      <TextBox sx={{ height: "100%", width: "100%" }} />
+                      <Box mb="10px"></Box>
+                    </div>
+                  ) : param.type == "bool" ? (
+                    <div key={param.name}>
+                      {/* <FormControl>
+                        <FormLabel id="demo-controlled-radio-buttons-group">
+                          Value
+                        </FormLabel>
+                        <RadioGroup
+                          aria-labelledby="demo-controlled-radio-buttons-group"
+                          name="controlled-radio-buttons-group"
+                          value={value}
+                          onChange={handleChange}
+                        >
+                          <FormControlLabel
+                            value="true"
+                            control={<Radio />}
+                            label="True"
+                          />
+                          <FormControlLabel
+                            value="false"
+                            control={<Radio />}
+                            label="False"
+                          />
+                        </RadioGroup>
+                      </FormControl> */}
+                    </div>
+                  ) : null
+                )}
+              </div>
+            ))}
         </Box>
       </Grid>
     </Grid>
