@@ -3,9 +3,19 @@ import pandas as pd
 from flask import jsonify, request
 from werkzeug.utils import secure_filename
 import json
+from preprocessing import apply_pipeline
+from flask import jsonify
 
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
+def preprocess_data():
+    try:
+        preprocess_pipeline = request.get_json()  
+        preprocessed_data = apply_pipeline(preprocess_pipeline)
+        return jsonify({"message": "Data preprocessed successfully", "filename": "data_preprocessed.csv"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+        
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
