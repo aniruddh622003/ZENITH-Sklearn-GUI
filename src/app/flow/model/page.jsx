@@ -1,32 +1,43 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ComboBox from "../../../components/AutoComplete";
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, TextField } from "@mui/material";
 import TextBox from "@/components/TextBox";
-// import {
-//   RadioGroup,
-//   FormControl,
-//   FormLabel,
-//   FormControlLabel,
-// } from "@mui/material";
+import { OnlinePredictionSharp } from "@mui/icons-material";
 
-const Parameters = () => {
+const options = [
+  "Linear Regression",
+  "Logistic Regression",
+  "Ridge Regression",
+  "Lasso Regression",
+  "SVM",
+  "Decision Tree",
+  "Random Forest",
+  "KNN",
+  "K Means",
+  "Naive Bayes",
+  "Gradient Boosting",
+  "XGBoost",
+  "DBSCAN",
+  "Birch Algorithm",
+  "Isolation Forest",
+];
+
+const ModelPage = () => {
+  const [value, setValue] = useState(options[0]);
+
+  const [selectedModel, setSelectedModel] = useState(options[0]);
+  const [inputValue, setInputValue] = useState("");
+
   const [data, setData] = useState(null);
-  // const [value, setValue] = useState("true");
-
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
-
   useEffect(() => {
     async function fetchParam() {
       try {
         const resp = await fetch("/api/available-models");
-        console.log(resp.status);
         if (resp.status == 200) {
-          let dataF = await resp.json();
-          console.log(dataF);
-          setData(dataF);
+          const dataF = await resp.json();
+          // console.log(dataF["available-model"]);
+          setData(dataF["available-model"]);
         } else {
           //error
         }
@@ -36,11 +47,9 @@ const Parameters = () => {
     }
     fetchParam();
   }, []);
-  return data;
-};
 
-const ModelPage = () => {
-  const fetchedData = Parameters();
+  useEffect(() => console.log(data), [data]);
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={6}>
@@ -51,7 +60,14 @@ const ModelPage = () => {
           height="100vh"
           width="100%"
         >
-          <ComboBox sx={{ width: "100%" }} />
+          <ComboBox
+            options={data ? Object.keys(data) : options}
+            value={selectedModel}
+            setValue={setSelectedModel}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            sx={{ width: "100%" }}
+          />
           <Box
             display="flex"
             justifyContent="space-between"
@@ -76,50 +92,30 @@ const ModelPage = () => {
       </Grid>
       <Grid item xs={6}>
         <Box
-          display="flex"
-          flexDirection="column"
-          height="100%"
-          width="100%"
-          pr="50px"
+          // display="flex"
+          // flexDirection="column"
+          // justifyContent="start"
+          // height="100%"
+          // width="100%"
+          // pr="50px"
+          sx={{
+            pr: "20px",
+          }}
         >
-          {fetchedData &&
-            fetchedData["available-preprocess"].map((model) => (
-              <div key={model.name}>
-                {model.params.map((param) =>
-                  param.type == "int" || param.type == "float" ? (
-                    <div key={param.name}>
-                      <TextBox sx={{ height: "100%", width: "100%" }} />
-                      <Box mb="10px"></Box>
-                    </div>
-                  ) : param.type == "bool" ? (
-                    <div key={param.name}>
-                      {/* <FormControl>
-                        <FormLabel id="demo-controlled-radio-buttons-group">
-                          Value
-                        </FormLabel>
-                        <RadioGroup
-                          aria-labelledby="demo-controlled-radio-buttons-group"
-                          name="controlled-radio-buttons-group"
-                          value={value}
-                          onChange={handleChange}
-                        >
-                          <FormControlLabel
-                            value="true"
-                            control={<Radio />}
-                            label="True"
-                          />
-                          <FormControlLabel
-                            value="false"
-                            control={<Radio />}
-                            label="False"
-                          />
-                        </RadioGroup>
-                      </FormControl> */}
-                    </div>
-                  ) : null
-                )}
-              </div>
-            ))}
+          {data && console.log(data?.[value]?.Parameters)}
+          {data &&
+            Object.entries(data?.[value]?.Parameters)?.map((k) => {
+              console.log(k);
+              return (
+                <>
+                  <TextField
+                    sx={{ height: "100%", width: "100%" }}
+                    label={k[0]}
+                  />
+                  <Box mb="10px"></Box>
+                </>
+              );
+            })}
         </Box>
       </Grid>
     </Grid>
