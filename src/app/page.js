@@ -40,11 +40,9 @@ export default function Home() {
             color="primary"
             component={NextLink}
             href="/flow/upload-dataset"
-            // sx={{ marginRight: "1rem" }}
           >
             Get Started
           </Button>
-          This is broken code.
         </Box>
       </Box>
       <Footer />

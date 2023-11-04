@@ -5,8 +5,6 @@ from helper import allowed_file, upload_and_process_file
 import os
 import pandas as pd
 
-Fix me Tooo.
-
 app = Flask(__name__)
 CORS(app)
 
