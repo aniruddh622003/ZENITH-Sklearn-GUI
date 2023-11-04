@@ -40,24 +40,9 @@ export default function Home() {
             color="primary"
             component={NextLink}
             href="/flow/upload-dataset"
-            // sx={{ marginRight: "1rem" }}
           >
             Get Started
           </Button>
-          {/* <Button
-            variant="outlined"
-            color="primary"
-            sx={{ marginRight: "1rem" }}
-          >
-            Button 2
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{ marginRight: "1rem" }}
-          >
-            Button 3
-          </Button> */}
         </Box>
       </Box>
       <Footer />
