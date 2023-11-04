@@ -44,20 +44,7 @@ export default function Home() {
           >
             Get Started
           </Button>
-          {/* <Button
-            variant="outlined"
-            color="primary"
-            sx={{ marginRight: "1rem" }}
-          >
-            Button 2
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{ marginRight: "1rem" }}
-          >
-            Button 3
-          </Button> */}
+          This is broken code.
         </Box>
       </Box>
       <Footer />
