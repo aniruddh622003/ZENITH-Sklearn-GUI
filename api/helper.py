@@ -5,7 +5,9 @@ from werkzeug.utils import secure_filename
 import json
 from preprocessing import apply_pipeline
 from flask import jsonify
-
+dataset_present = False
+existing_num_rows = 0
+existing_num_columns = 0
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
 def preprocess_data():
@@ -41,12 +43,6 @@ def upload_and_process_file(app):
 
         filename = secure_filename("data.csv")
         file_path = os.path.join(app.config['Upload_Folder'], filename)
-
-        if dataset_present:    # Dataset is already present, return its details
-            return jsonify({"message": "Dataset already present",
-                            "filename": filename,
-                            "rows": existing_num_rows,
-                            "columns": existing_num_columns}), 200
 
         if os.path.exists(file_path): 
             os.remove(file_path)
