@@ -1,7 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 from helper import allowed_file, upload_and_process_file
+import os
+import pandas as pd
+from preprocessing import apply_pipeline
+from helper import preprocess_data
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +20,19 @@ existing_num_columns = 0
 def get_available_preprocess():
     f = open("api/available-preprocess.json")
     return json.load(f)
+
+@app.route("/api/preprocess", methods=["POST"])
+def preprocess_data():
+    try:
+        preprocessing_pipeline = request.get_json()
+        if preprocessing_pipeline['nodes'][-1]['name'] == 'Processed Data':
+            apply_pipeline(preprocessing_pipeline['nodes'][1:-1])
+        else:
+            apply_pipeline(preprocessing_pipeline['nodes'][1:]) # this should be error as processed data node is not connected to anything
+        return jsonify({"message": "Sucessfully Pre-processed Data"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/api/available-models", methods=["GET"])
 def get_available_models():
@@ -41,6 +58,7 @@ def dataset_existing():
         }), 200
 
     return jsonify({"message": "No dataset is present"}), 404
+ 
 
 @app.route("/api/upload_and_process_file", methods=["GET", "POST"])
 def upload_and_process_file_route():

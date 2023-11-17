@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { AiFillCloseCircle, AiFillDownCircle } from "react-icons/ai";
+import {
+  AiFillCloseCircle,
+  AiFillDownCircle,
+  AiFillUpCircle,
+} from "react-icons/ai";
 import styles from "./index.module.css";
 
 const NodePanel = () => {
@@ -27,7 +31,7 @@ const NodePanel = () => {
   }, []);
 
   return (
-    <Card sx={{ p: 2, width: "25vw" }}>
+    <Card sx={{ p: 2, width: "20vw", borderRadius: "8px" }}>
       <Grid
         container
         sx={{
@@ -37,13 +41,13 @@ const NodePanel = () => {
         }}
       >
         <Grid item xs={10}>
-          <Typography variant="h6" sx={{ fontWeight: "800" }}>
+          <Typography variant="h6" sx={{ fontWeight: "400" }}>
             Node Panel
           </Typography>
         </Grid>
         <Grid item xs={2} sx={{ display: "flex", justifyContent: "end" }}>
           <IconButton onClick={() => setCol(!col)}>
-            {!col ? <AiFillDownCircle /> : <AiFillCloseCircle />}
+            {!col ? <AiFillDownCircle /> : <AiFillUpCircle />}
           </IconButton>
         </Grid>
       </Grid>
@@ -73,12 +77,31 @@ const PanelItem = ({ name, data }) => {
     event.dataTransfer.effectAllowed = "move";
   };
   return (
+    // this is dropdown list item
     <Box
-      sx={{ p: 1, m: 1, border: "1px solid black", borderRadius: "5px" }}
+      sx={{
+        p: 0,
+        m: 1,
+        border: "1px solid green",
+        borderRadius: "5px",
+        transform: "scale(0.98)",
+        ":hover": {
+          backgroundColor: "primary.lightGreen",
+          boxShadow: "0 0 10px green",
+          border: "0",
+          transform: "scale(1.0)",
+        },
+      }}
       onDragStart={(event) => onDragStart(event, JSON.stringify(data))}
       draggable
     >
-      <Typography variant="h6">{name}</Typography>
+      <Typography
+        variant="h6"
+        align="center"
+        sx={{ p: 1, fontWeight: "300", ":hover": { fontWeight: "400" } }}
+      >
+        {name}
+      </Typography>
     </Box>
   );
 };

@@ -22,6 +22,7 @@ const theme = createTheme({
       salmon: "#FFD700",
       green: " #7CFC00",
       blue: "	#FFFFF0",
+      lightGreen: "#c9ffc4",
       bg: "#eee",
       contrastThreshold: 1,
     },
