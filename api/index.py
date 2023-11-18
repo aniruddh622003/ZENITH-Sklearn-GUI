@@ -22,7 +22,7 @@ def get_available_preprocess():
     return json.load(f)
 
 @app.route("/api/preprocess", methods=["POST"])
-def preprocess_data():
+def preprocess_data_route():
     try:
         preprocessing_pipeline = request.get_json()
         if preprocessing_pipeline['nodes'][-1]['name'] == 'Processed Data':

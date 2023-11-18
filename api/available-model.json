@@ -1,372 +1,398 @@
 {
-    "available-model": {
-        "Linear Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "fit_intercept": "bool",    
-                "positive": "bool",
-                "copy_X": "bool",
-                "n_jobs": "int"
+    "available-model": [
+        {
+            "name": "linear regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "fit_intercept": {"dtype": "bool"},
+                "positive": {"dtype": "bool"},
+                "copy_X": {"dtype": "bool"},
+                "n_jobs": {"dtype": "int"}
             },
-            "Return": {
-                "coef_": "array",
-                "intercept_": "float"
+            "return": {
+                "coef_": {"dtype": "array"},
+                "intercept_": {"dtype": "float"}
             }
         },
-        "Logistic Regression": {
-            "Task": "Classification",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "C": "float",
-                "penalty": "str",
-                "dual": "bool",
-                "tol": "float",
-                "fit_intercept": "bool",
-                "intercept_scaling": "float",
-                "class_weight": "dict",
-                "random_state": "int",
-                "solver": "str"
+        {
+            "name": "logistic regression",
+            "task": "Classification",
+            "data": "Supervised, numerical data",
+            "params": {
+                "C": {"dtype": "float"},
+                "penalty": {"dtype": "str"},
+                "dual": {"dtype": "bool"},
+                "tol": {"dtype": "float"},
+                "fit_intercept": {"dtype": "bool"},
+                "intercept_scaling": {"dtype": "float"},
+                "class_weight": {"dtype": "dict"},
+                "random_state": {"dtype": "int"},
+                "solver": {"dtype": "str"}
             },
-            "Return": {
-                "coef_": "array",
-                "intercept_": "float"
+            "return": {
+                "coef_": {"dtype": "array"},
+                "intercept_": {"dtype": "float"}
             }
         },
-        "Ridge Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "alpha": "float",
-                "fit_intercept": "bool",
-                "solver": "str",
-                "copy_X": "bool",
-                "max_iter": "int",
-                "tol": "float",
-                "positive": "bool",
-                "random_state": "int"
+        {
+            "name": "ridge regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "alpha": {"dtype": "float"},
+                "fit_intercept": {"dtype": "bool"},
+                "solver": {"dtype": "str"},
+                "copy_X": {"dtype": "bool"},
+                "max_iter": {"dtype": "int"},
+                "tol": {"dtype": "float"},
+                "positive": {"dtype": "bool"},
+                "random_state": {"dtype": "int"}
             },
-            "Return": {
-                "coef_": "array",
-                "intercept_": "float"
+            "return": {
+                "coef_": {"dtype": "array"},
+                "intercept_": {"dtype": "float"}
             }
         },
-        "Lasso Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "alpha": "float",
-                "fit_intercept": "bool",
-                "precompute": "bool",
-                "copy_X": "bool",
-                "max_iter": "int",
-                "tol": "float",
-                "warm_start": "bool",
-                "positive": "bool",
-                "random_state": "int",
-                "selection": "str (cyclic, random)"
+        {
+            "name": "lasso regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "alpha": {"dtype": "float"},
+                "fit_intercept": {"dtype": "bool"},
+                "precompute": {"dtype": "bool"},
+                "copy_X": {"dtype": "bool"},
+                "max_iter": {"dtype": "int"},
+                "tol": {"dtype": "float"},
+                "warm_start": {"dtype": "bool"},
+                "positive": {"dtype": "bool"},
+                "random_state": {"dtype": "int"},
+                "selection": {"dtype": "str (cyclic, random)"}
             },
-            "Return": {
-                "coef_": "array",
-                "intercept_": "float"
+            "return": {
+                "coef_": {"dtype": "array"},
+                "intercept_": {"dtype": "float"}
             }
         },
-        "SVM": {
-            "Task": "Both",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "C": "float",
-                "kernel": "str",
-                "gamma": "float",
-                "degree": "int",
-                "coef": "float",
-                "shrinking": "bool",
-                "probability": "bool",
-                "tol": "float",
-                "cache_size": "float",
-                "class_weight": "dict",
-                "verbose": "bool",
-                "max_iter": "int",
-                "decision_function_shape": "str (ov o, ovr)"
+        {
+            "name": "svm",
+            "task": "Both",
+            "data": "Supervised, numerical data",
+            "params": {
+                "C": {"dtype": "float"},//integer
+                "kernel": {"dtype": "str"},
+                "gamma": {"dtype": "float"},
+                "degree": {"dtype": "int"},
+                "coef": {"dtype": "float"},
+                "shrinking": {"dtype": "bool"},
+                "probability": {"dtype": "bool"},
+                "tol": {"dtype": "float"},
+                "cache_size": {"dtype": "float"},
+                "class_weight": {"dtype": "dict"},
+                "verbose": {"dtype": "bool"},
+                "max_iter": {"dtype": "int"},
+                "decision_function_shape": {"dtype": "str (ov o, ovr)"}
             },
-            "Return": {
-                "support_": "array",
-                "dual_coef_": "array",
-                "intercept_": "array"
+            "return": {
+                "support_": {"dtype": "array"},
+                "dual_coef_": {"dtype": "array"},
+                "intercept_": {"dtype": "array"}
             }
         },
-        "Decision Tree": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "criterion": "str",
-                "max_depth": "int",
-                "min_samples_split": "int",
-                "min_samples_leaf": "int or float",
-                "min_weight_fraction_leaf": "int or float",
-                "max_features": "int or float",
-                "random_state": "int",
-                "min_impurity_decrease": "float",
-                "class_weight": "dict",
-                "ccp_alpha": "non-negative float"
+        {
+            "name": "decision tree",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "criterion": {"dtype": "str"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "min_weight_fraction_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int or float"},
+                "random_state": {"dtype": "int"},
+                "min_impurity_decrease": {"dtype": "float"},
+                "class_weight": {"dtype": "dict"},
+                "ccp_alpha": {"dtype": "non-negative float"}
             },
-            "Return": {
-                "predict": "array",
-                "predict_proba": "array",
-                "max_leaf_nodes": "int"
+            "return": {
+                "predict": {"dtype": "array"},
+                "predict_proba": {"dtype": "array"},
+                "max_leaf_nodes": {"dtype": "int"}
             }
         },
-        "Decision Tree Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary data",
-            "Parameters": {
-                "criterion": "str",
-                "max_depth": "int",
-                "min_samples_split": "int",
-                "min_samples_leaf": "int or float",
-                "min_weight_fraction_leaf": "int or float",
-                "max_features": "int or float",
-                "random_state": "int",
-                "max_leaf_nodes": "int",
-                "min_impurity_decrease": "float",
-                "class_weight": "dict",
-                "ccp_alpha": "non-negative float"
+        {
+            "name": "decision tree classification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": {
+                "criterion": {"dtype": "str"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "min_weight_fraction_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int or float"},
+                "random_state": {"dtype": "int"},
+                "max_leaf_nodes": {"dtype": "int"},
+                "min_impurity_decrease": {"dtype": "float"},
+                "class_weight": {"dtype": "dict"},
+                "ccp_alpha": {"dtype": "non-negative float"}
             },
-            "Return": {
-                "predict": "array",
-                "predict_proba": "array",
-                "max_leaf_nodes": "int"
+            "return": {
+                "predict": {"dtype": "array"},
+                "predict_proba": {"dtype": "array"},
+                "max_leaf_nodes": {"dtype": "int"}
             }
         },
-        "Random Forest": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "n_estimators": "int",
-                "max_depth": "int",
-                "criterion": "str",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "min_weight_fraction_leaf": "float",
-                "max_features": "int or float",
-                "max_leaf_nodes": "int",
-                "min_impurity_decrease": "float",
-                "bootstrap": "bool",
-                "oob_score": "bool",
-                "n_jobs": "int",
-                "random_state": "int",
-                "verbose": "int",
-                "warm_start": "bool",
-                "class_weight": "dict",
-                "ccp_alpha": "non-negative float",
-                "max_samples": "int"
+        {
+            "name": "random forest",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "max_depth": {"dtype": "int"},
+                "criterion": {"dtype": "str"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "min_weight_fraction_leaf": {"dtype": "float"},
+                "max_features": {"dtype": "int or float"},
+                "max_leaf_nodes": {"dtype": "int"},
+                "min_impurity_decrease": {"dtype": "float"},
+                "bootstrap": {"dtype": "bool"},
+                "oob_score": {"dtype": "bool"},
+                "n_jobs": {"dtype": "int"},
+                "random_state": {"dtype": "int"},
+                "verbose": {"dtype": "int"},
+                "warm_start": {"dtype": "bool"},
+                "class_weight": {"dtype": "dict"},
+                "ccp_alpha": {"dtype": "non-negative float"},
+                "max_samples": {"dtype": "int"}
             },
-            "Return": {
-                "predict": "array",
-                "predict_proba": "array"
+            "return": {
+                "predict": {"dtype": "array"},
+                "predict_proba": {"dtype": "array"}
             }
         },
-        "Random Forest Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary data",
-            "Parameters": {
-                "n_estimators": "int",
-                "max_depth": "int",
-                "criterion": "str",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "min_weight_fraction_leaf": "float",
-                "max_features": "int or float",
-                "max_leaf_nodes": "int",
-                "min_impurity_decrease": "float",
-                "bootstrap": "bool",
-                "oob_score": "bool",
-                "n_jobs": "int",
-                "random_state": "int",
-                "verbose": "int",
-                "warm_start": "bool",
-                "class_weight": "dict",
-                "ccp_alpha": "non-negative float",
-                "max_samples": "int"
+        {
+            "name": "random forest classification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "max_depth": {"dtype": "int"},
+                "criterion": {"dtype": "str"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "min_weight_fraction_leaf": {"dtype": "float"},
+                "max_features": {"dtype": "int or float"},
+                "max_leaf_nodes": {"dtype": "int"},
+                "min_impurity_decrease": {"dtype": "float"},
+                "bootstrap": {"dtype": "bool"},
+                "oob_score": {"dtype": "bool"},
+                "n_jobs": {"dtype": "int"},
+                "random_state": {"dtype": "int"},
+                "verbose": {"dtype": "int"},
+                "warm_start": {"dtype": "bool"},
+                "class_weight": {"dtype": "dict"},
+                "ccp_alpha": {"dtype": "non-negative float"},
+                "max_samples": {"dtype": "int"}
             },
-            "Return": {
-                "predict": "array",
-                "predict_proba": "array"
+            "return": {
+                "predict": {"dtype": "array"},
+                "predict_proba": {"dtype": "array"}
             }
         },
-        "KNN Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "n_neighbors": "int",
-                "weights": "str",
-                "algorithm": "str",
-                "leaf_size": "int",
-                "p": "float",
-                "metric": "str",
-                "metric_params": "dict",
-                "n_jobs": "int"
+        {
+            "name": "knn regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "n_neighbors": {"dtype": "int"},
+                "weights": {"dtype": "str"},
+                "algorithm": {"dtype": "str"},
+                "leaf_size": {"dtype": "int"},
+                "p": {"dtype": "float"},
+                "metric": {"dtype": "str"},
+                "metric_params": {"dtype": "dict"},
+                "n_jobs": {"dtype": "int"}
             },
-            "Return": {
-                "predict": "array"
+            "return": {
+                "predict": {"dtype": "array"}
             }
         },
-        "KNN Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary data",
-            "Parameters": {
-                "n_neighbors": "int",
-                "weights": "str",
-                "algorithm": "str",
-                "leaf_size": "int",
-                "p": "float",
-                "metric": "str",
-                "metric_params": "dict",
-                "n_jobs": "int"
+        {
+            "name": "knn classification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": {
+                "n_neighbors": {"dtype": "int"},
+                "weights": {"dtype": "str"},
+                "algorithm": {"dtype": "str"},
+                "leaf_size": {"dtype": "int"},
+                "p": {"dtype": "float"},
+                "metric": {"dtype": "str"},
+                "metric_params": {"dtype": "dict"},
+                "n_jobs": {"dtype": "int"}
             },
-            "Return": {
-                "predict": "array",
-                "predict_proba": "array"
+            "return": {
+                "predict": {"dtype": "array"},
+                "predict_proba": {"dtype": "array"}
             }
         },
-        "K Means Clustering": {
-            "Task": "Unsupervised",
-            "Data": "Numerical data",
-            "Parameters": {
-                "n_clusters": "int",
-                "init": "str",
-                "n_init": "int",
-                "max_iter": "int",
-                "tol": "float",
-                "verbose": "int",
-                "random_state": "int",
-                "copy_x": "bool"
+        {
+            "name": "k means clustering",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": {
+                "n_clusters": {"dtype": "int"},
+                "init": {"dtype": "str"},
+                "n_init": {"dtype": "int"},
+                "max_iter": {"dtype": "int"},
+                "tol": {"dtype": "float"},
+                "verbose": {"dtype": "int"},
+                "random_state": {"dtype": "int"},
+                "copy_x": {"dtype": "bool"}
             },
-            "Return": {
-                "labels_": "array",
-                "cluster_centers_": "array"
+            "return": {
+                "labels_": {"dtype": "array"},
+                "cluster_centers_": {"dtype": "array"}
             }
         },
-        "Naïve Bayes Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary or multiclass data",
-            "Parameters": {
-                "alpha": "smoothing parameter",
-                "priors": "n_classes",
-                "var_smoothing": "float"
+        {
+            "name": "naïve bayes classification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": {
+                "alpha": {"dtype": "smoothing parameter"},
+                "priors": {"dtype": "n_classes"},
+                "var_smoothing": {"dtype": "float"}
             },
-            "Return": {
-                "class_log_prior_": "array",
-                "class_count_": "array",
-                "feature_count_": "array"
+            "return": {
+                "class_log_prior_": {"dtype": "array"},
+                "class_count_": {"dtype": "array"},
+                "feature_count_": {"dtype": "array"}
             }
         },
-        "Gradient Boosting Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "n_estimators": "int",
-                "learning_rate": "float",
-                "max_depth": "int",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "max_features": "int, float, or {'auto', 'sqrt', 'log2'}"
+        {
+            "name": "gradient boosting regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "learning_rate": {"dtype": "float"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             },
-            "Return": {
-                "estimators_": "array of objects"
+            "return": {
+                "estimators_": {"dtype": "array of objects"}
             }
         },
-        "Gradient Boosting Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary or multiclass data",
-            "Parameters": {
-                "n_estimators": "int",
-                "learning_rate": "float",
-                "max_depth": "int",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "max_features": "int, float, or {'auto', 'sqrt', 'log2'}"
+        {
+            "name": "gradient boosting classification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "learning_rate": {"dtype": "float"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             },
-            "Return": {
-                "estimators_": "array of objects"
+            "return": {
+                "estimators_": {"dtype": "array of objects"}
             }
         },
-        "XGBoost Regression": {
-            "Task": "Regression",
-            "Data": "Supervised, numerical data",
-            "Parameters": {
-                "n_estimators": "int",
-                "learning_rate": "float",
-                "max_depth": "int",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "max_features": "int, float, or {'auto', 'sqrt', 'log2'}"
+        {
+            "name": "xgboost regression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "learning_rate": {"dtype": "float"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             },
-            "Return": {
-                "Booster": "object"
+            "return": {
+                "Booster": {"dtype": "object"}
             }
         },
-        "XGBoost Classification": {
-            "Task": "Classification",
-            "Data": "Supervised, binary or multiclass data",
-            "Parameters": {
-                "n_estimators": "int",
-                "learning_rate": "float",
-                "max_depth": "int",
-                "min_samples_split": "int or float",
-                "min_samples_leaf": "int or float",
-                "max_features": "int, float, or {'auto', 'sqrt', 'log2'}"
+        {
+            "name": "xgboost classification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "learning_rate": {"dtype": "float"},
+                "max_depth": {"dtype": "int"},
+                "min_samples_split": {"dtype": "int or float"},
+                "min_samples_leaf": {"dtype": "int or float"},
+                "max_features": {"dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             },
-            "Return": {
-                "Booster": "object"
+            "return": {
+                "Booster": {"dtype": "object"}
             }
         },
-        "DBSCAN Clustering": {
-            "Task": "Unsupervised",
-            "Data": "Numerical data",
-            "Parameters": {
-                "eps": "float",
-                "min_samples": "int",
-                "metric": "str",
-                "metric_params": "dict",
-                "algorithm": "str",
-                "leaf_size": "int",
-                "p": "float",
-                "n_jobs": "int"
+        {
+            "name": "dbscan clustering",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": {
+                "eps": {"dtype": "float"},
+                "min_samples": {"dtype": "int"},
+                "metric": {"dtype": "str"},
+                "metric_params": {"dtype": "dict"},
+                "algorithm": {"dtype": "str"},
+                "leaf_size": {"dtype": "int"},
+                "p": {"dtype": "float"},
+                "n_jobs": {"dtype": "int"}
             },
-            "Return": {
-                "labels_": "array"
+            "return": {
+                "labels_": {"dtype": "array"}
             }
         },
-        "Birch Algorithm": {
-            "Task": "Clustering",
-            "Data": "Unsupervised, numerical data",
-            "Parameters": {
-                "threshold": "float",
-                "branching_factor": "int",
-                "clusters": "int"
+        {
+            "name": "birch algorithm",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical data",
+            "params": {
+                "threshold": {"dtype": "float"},
+                "branching_factor": {"dtype": "int"},
+                "clusters": {"dtype": "int"}
             },
-            "Return": {
-                "Set of clusters": "including centroids and covariance matrices"
+            "return": {
+                "Set of clusters": {"dtype": "including centroids and covariance matrices"}
             }
         },
-        "Isolation Forest": {
-            "Task": "Clustering",
-            "Data": "Unsupervised, numerical and binary data",
-            "Parameters": {
-                "n_estimators": "int",
-                "max_samples": "auto, int, float",
-                "contamination": "float or auto",
-                "max_features": "float",
-                "bootstrap": "bool",
-                "n_jobs": "int",
-                "random_state": "int",
-                "verbose": "int",
-                "warm_start": "bool"
+        {
+            "name": "isolation forest",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical and binary data",
+            "params": {
+                "n_estimators": {"dtype": "int"},
+                "max_samples": {"dtype": "auto, int, float"},
+                "contamination": {"dtype": "float or auto"},
+                "max_features": {"dtype": "float"},
+                "bootstrap": {"dtype": "bool"},
+                "n_jobs": {"dtype": "int"},
+                "random_state": {"dtype": "int"},
+                "verbose": {"dtype": "int"},
+                "warm_start": {"dtype": "bool"}
             },
-            "Return": {
-                "selected": "various parameters"
+            "return": {
+                // "outliers_": {"dtype": "array"},
+                // "decision_function_": {"dtype": "array"}
+                "selected": {"dtype": "various parameters"}
             }
         }
-    }
+    ]
 }
+
+
+
+
