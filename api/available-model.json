@@ -5,13 +5,12 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "fit_intercept", "default": "True", "dtype": "bool"},
-                {"name": "positive", "default": "None", "dtype": "bool"},
-                {"name": "copy_X", "default": "True", "dtype": "bool"},
-                {"name": "n_jobs", "default": "None", "dtype": "int"}
+                {"name": "fit_intercept", "default": true, "dtype": "bool"},
+                {"name": "positive", "default": false, "dtype": "bool"},
+                {"name": "copy_X", "default": true, "dtype": "bool"}
             ],
             "return": [
-                {"name": "coef_", "dtype": "array"},
+                {"name": "coef_", "dtype": "array" },
                 {"name": "intercept_", "dtype": "float"}
             ]
         },
@@ -20,14 +19,13 @@
             "task": "Classification",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "C", "default": "None", "dtype": "float"},
-                {"name": "penalty", "default": "None", "dtype": "str"},
-                {"name": "dual", "default": "True", "dtype": "bool"},
-                {"name": "tol", "default": "None", "dtype": "float"},
-                {"name": "fit_intercept", "default": "True", "dtype": "bool"},
-                {"name": "intercept_scaling", "default": "None", "dtype": "float"},
-                {"name": "class_weight", "default": "None", "dtype": "dict"},
-                {"name": "random_state", "default": "None", "dtype": "int"},
+                {"name": "C", "default": 1.0, "dtype": "float"},
+                {"name": "penalty", "default": "l2", "dtype": "str"},
+                {"name": "dual", "default": false, "dtype": "bool"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "intercept_scaling", "default": 1, "dtype": "float"},
+                {"name": "class_weight", "default": "None", "dtype": "dict or 'balanced'"},
+                {"name": "random_state", "default": "None", "dtype": "int or RandomState instance"},
                 {"name": "solver", "default": "lbfgs", "dtype": "str"}
             ],
             "return": [
@@ -40,18 +38,21 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "alpha", "default": "1.0", "dtype": "float"},
-                {"name": "fit_intercept", "default": "True", "dtype": "bool"},
+                {"name": "alpha", "default": 1.0, "dtype": "float"},
+                {"name": "fit_intercept", "default": true, "dtype": "bool"},
                 {"name": "solver", "default": "auto", "dtype": "str"},
-                {"name": "copy_X", "default": "True", "dtype": "bool"},
-                {"name": "max_iter", "default": "None", "dtype": "int"},
-                {"name": "tol", "default": "None", "dtype": "float"},
-                {"name": "positive", "default": "False", "dtype": "bool"},
-                {"name": "random_state", "default": "None", "dtype": "int"}
+                {"name": "copy_X", "default": true, "dtype": "bool"},
+                {"name": "max_iter", "default": null, "dtype": "int"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "positive", "default": false, "dtype": "bool"},
+                {"name": "random_state", "default": null, "dtype": "int or RandomState instance"}
             ],
             "return": [
                 {"name": "coef_", "dtype": "array"},
-                {"name": "intercept_", "dtype": "float"}
+                {"name": "intercept_", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "n_iter", "dtype": "None or ndarray of shape (n_targets,)"},
+                {"name": "n_features_in", "dtype": "int"},
+                {"name": "feature_names_in", "dtype": "ndarray of shape (n_features_in_,)"}
             ]
         },
         {
@@ -59,20 +60,25 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "alpha", "default": "1.0", "dtype": "float"},
-                {"name": "fit_intercept", "default": "True", "dtype": "bool"},
-                {"name": "precompute", "default": "False", "dtype": "bool"},
-                {"name": "copy_X", "default": "True", "dtype": "bool"},
-                {"name": "max_iter", "default": "None", "dtype": "int"},
-                {"name": "tol", "default": "None", "dtype": "float"},
-                {"name": "warm_start", "default": "False", "dtype": "bool"},
-                {"name": "positive", "default": "False", "dtype": "bool"},
-                {"name": "random_state", "default": "None", "dtype": "int"},
+                {"name": "alpha", "default": 1.0, "dtype": "float"},
+                {"name": "fit_intercept", "default": true, "dtype": "bool"},
+                {"name": "precompute", "default": false, "dtype": "bool or array-like of shape (n_features, n_features)"},
+                {"name": "copy_X", "default": true, "dtype": "bool"},
+                {"name": "max_iter", "default": 1000, "dtype": "int"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "warm_start", "default": false, "dtype": "bool"},
+                {"name": "positive", "default": false, "dtype": "bool"},
+                {"name": "random_state", "default": null, "dtype": "int or RandomState instance"},
                 {"name": "selection", "default": "cyclic", "dtype": "str (cyclic, random)"}
             ],
             "return": [
                 {"name": "coef_", "dtype": "array"},
-                {"name": "intercept_", "dtype": "float"}
+                {"name": "dual_gap", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "sparse_coef", "dtype": "sparse matrix of shape (n_features, 1) or (n_targets, n_features)"},
+                {"name": "intercept_", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "n_iter", "dtype": "int or list of int"},
+                {"name": "n_features_in", "dtype": "int"},
+                {"name": "feature_names_in", "dtype": "ndarray of shape (n_features_in_,)"}
             ]
         },
         {
@@ -80,18 +86,18 @@
             "task": "Both",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "C", "default": "1.0", "dtype": "float"},
+                {"name": "C", "default": 1.0, "dtype": "float"},
                 {"name": "kernel", "default": "rbf", "dtype": "str"},
                 {"name": "gamma", "default": "scale", "dtype": "float"},
-                {"name": "degree", "default": "3", "dtype": "int"},
-                {"name": "coef", "default": "0.0", "dtype": "float"},
-                {"name": "shrinking", "default": "True", "dtype": "bool"},
-                {"name": "probability", "default": "False", "dtype": "bool"},
-                {"name": "tol", "default": "1e-3", "dtype": "float"},
-                {"name": "cache_size", "default": "200", "dtype": "float"},
-                {"name": "class_weight", "default": "None", "dtype": "dict"},
-                {"name": "verbose", "default": "False", "dtype": "bool"},
-                {"name": "max_iter", "default": "-1", "dtype": "int"},
+                {"name": "degree", "default": 3, "dtype": "int"},
+                {"name": "coef", "default": 0.0, "dtype": "float"},
+                {"name": "shrinking", "default": true, "dtype": "bool"},
+                {"name": "probability", "default": false, "dtype": "bool"},
+                {"name": "tol", "default": 1e-3, "dtype": "float"},
+                {"name": "cache_size", "default": 200, "dtype": "float"},
+                {"name": "class_weight", "default": "None", "dtype": "dict or ‘balanced’"},
+                {"name": "verbose", "default": false, "dtype": "bool"},
+                {"name": "max_iter", "default": -1, "dtype": "int"},
                 {"name": "decision_function_shape", "default": "ovr", "dtype": "str (ovr, ovo)"}
             ],
             "return": [
@@ -107,11 +113,11 @@
             "params": [
                 {"name": "criterion", "default": "mse", "dtype": "str"},
                 {"name": "max_depth", "default": "None", "dtype": "int"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int"},
+                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
                 {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "int or float"},
-                {"name": "max_features", "default": "None", "dtype": "int or float"},
-                {"name": "random_state", "default": "None", "dtype": "int"},
+                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "float"},
+                {"name": "max_features", "default": "None", "dtype": "int, float or str"},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState or None"},
                 {"name": "min_impurity_decrease", "default": "0.0", "dtype": "float"},
                 {"name": "class_weight", "default": "None", "dtype": "dict"},
                 {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float"}
@@ -128,15 +134,16 @@
             "data": "Supervised, binary data",
             "params": [
                 {"name": "criterion", "default": "gini", "dtype": "str"},
+                {"name": "splitter", "default": "best", "dtype": "str"},
                 {"name": "max_depth", "default": "None", "dtype": "int"},
                 {"name": "min_samples_split", "default": "2", "dtype": "int"},
                 {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "int or float"},
+                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "float"},
                 {"name": "max_features", "default": "None", "dtype": "int or float"},
                 {"name": "random_state", "default": "None", "dtype": "int"},
                 {"name": "max_leaf_nodes", "default": "None", "dtype": "int"},
                 {"name": "min_impurity_decrease", "default": "0.0", "dtype": "float"},
-                {"name": "class_weight", "default": "None", "dtype": "dict"},
+                {"name": "class_weight", "default": "None", "dtype": "dict, list of dict, or 'balanced'"},
                 {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float"}
             ],
             "return": [
@@ -150,23 +157,23 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
                 {"name": "max_depth", "default": "None", "dtype": "int"},
                 {"name": "criterion", "default": "mse", "dtype": "str"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "float"},
-                {"name": "max_features", "default": "None", "dtype": "int or float"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
+                {"name": "min_weight_fraction_leaf", "default": 0.0, "dtype": "float"},
+                {"name": "max_features", "default": 1.0, "dtype": "int or float"},
                 {"name": "max_leaf_nodes", "default": "None", "dtype": "int"},
-                {"name": "min_impurity_decrease", "default": "0.0", "dtype": "float"},
-                {"name": "bootstrap", "default": "True", "dtype": "bool"},
-                {"name": "oob_score", "default": "False", "dtype": "bool"},
+                {"name": "min_impurity_decrease", "default": 0.0, "dtype": "float"},
+                {"name": "bootstrap", "default": true, "dtype": "bool"},
+                {"name": "oob_score", "default": false, "dtype": "bool"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"},
                 {"name": "random_state", "default": "None", "dtype": "int"},
-                {"name": "verbose", "default": "0", "dtype": "int"},
-                {"name": "warm_start", "default": "False", "dtype": "bool"},
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "warm_start", "default": false, "dtype": "bool"},
                 {"name": "class_weight", "default": "None", "dtype": "dict"},
-                {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float"},
+                {"name": "ccp_alpha", "default": 0.0, "dtype": "non-negative float"},
                 {"name": "max_samples", "default": "None", "dtype": "int"}
             ],
             "return": [
@@ -179,23 +186,23 @@
             "task": "Classification",
             "data": "Supervised, binary data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
                 {"name": "max_depth", "default": "None", "dtype": "int"},
                 {"name": "criterion", "default": "gini", "dtype": "str"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "float"},
-                {"name": "max_features", "default": "None", "dtype": "int or float"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
+                {"name": "min_weight_fraction_leaf", "default": 0.0, "dtype": "float"},
+                {"name": "max_features", "default": "sqrt", "dtype": "int or float"},
                 {"name": "max_leaf_nodes", "default": "None", "dtype": "int"},
-                {"name": "min_impurity_decrease", "default": "0.0", "dtype": "float"},
-                {"name": "bootstrap", "default": "True", "dtype": "bool"},
-                {"name": "oob_score", "default": "False", "dtype": "bool"},
+                {"name": "min_impurity_decrease", "default": 0.0, "dtype": "float"},
+                {"name": "bootstrap", "default": true, "dtype": "bool"},
+                {"name": "oob_score", "default": false, "dtype": "bool"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"},
                 {"name": "random_state", "default": "None", "dtype": "int"},
-                {"name": "verbose", "default": "0", "dtype": "int"},
-                {"name": "warm_start", "default": "False", "dtype": "bool"},
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "warm_start", "default": false, "dtype": "bool"},
                 {"name": "class_weight", "default": "None", "dtype": "dict"},
-                {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float"},
+                {"name": "ccp_alpha", "default": 0.0, "dtype": "non-negative float"},
                 {"name": "max_samples", "default": "None", "dtype": "int"}
             ],
             "return": [
@@ -208,12 +215,12 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "n_neighbors", "default": "5", "dtype": "int"},
+                {"name": "n_neighbors", "default": 5, "dtype": "int"},
                 {"name": "weights", "default": "uniform", "dtype": "str"},
                 {"name": "algorithm", "default": "auto", "dtype": "str"},
-                {"name": "leaf_size", "default": "30", "dtype": "int"},
-                {"name": "p", "default": "2", "dtype": "float"},
-                {"name": "metric", "default": "minkowski", "dtype":"str"},
+                {"name": "leaf_size", "default": 30, "dtype": "int"},
+                {"name": "p", "default": 2, "dtype": "float"},
+                {"name": "metric", "default": "minkowski", "dtype": "str or callable"},
                 {"name": "metric_params", "default": "None", "dtype": "dict"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"}
             ],
@@ -226,12 +233,12 @@
             "task": "Classification",
             "data": "Supervised, binary data",
             "params": [
-                {"name": "n_neighbors", "default": "5", "dtype": "int"},
+                {"name": "n_neighbors", "default": 5, "dtype": "int"},
                 {"name": "weights", "default": "uniform", "dtype": "str"},
                 {"name": "algorithm", "default": "auto", "dtype": "str"},
-                {"name": "leaf_size", "default": "30", "dtype": "int"},
-                {"name": "p", "default": "2", "dtype": "float"},
-                {"name": "metric", "default": "minkowski", "dtype": "str"},
+                {"name": "leaf_size", "default": 30, "dtype": "int"},
+                {"name": "p", "default": 2, "dtype": "float"},
+                {"name": "metric", "default": "minkowski", "dtype": "str or callable"},
                 {"name": "metric_params", "default": "None", "dtype": "dict"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"}
             ],
@@ -245,14 +252,15 @@
             "task": "Unsupervised",
             "data": "Numerical data",
             "params": [
-                {"name": "n_clusters", "default": "8", "dtype": "int"},
-                {"name": "init", "default": "k-means++", "dtype": "str"},
-                {"name": "n_init", "default": "10", "dtype": "int"},
-                {"name": "max_iter", "default": "300", "dtype": "int"},
-                {"name": "tol", "default": "1e-4", "dtype": "float"},
-                {"name": "verbose", "default": "0", "dtype": "int"},
-                {"name": "random_state", "default": "None", "dtype": "int"},
-                {"name": "copy_x", "default": "True", "dtype": "bool"}
+                {"name": "n_clusters", "default": 8, "dtype": "int"},
+                {"name": "init", "default": "k-means++", "dtype": "str or callable or array-like"},
+                {"name": "n_init", "default": 10, "dtype": "'auto' or int"},
+                {"name": "max_iter", "default": 300, "dtype": "int"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None"},
+                {"name": "copy_x", "default": true, "dtype": "bool"},
+                {"name": "algorithm", "default": "lloyd", "dtype": "str"}
             ],
             "return": [
                 {"name": "labels_", "dtype": "array"},
@@ -264,9 +272,9 @@
             "task": "Classification",
             "data": "Supervised, binary or multiclass data",
             "params": [
-                {"name": "alpha", "default": "1.0", "dtype": "smoothing parameter"},
+                {"name": "alpha", "default": 1.0, "dtype": "smoothing parameter"},
                 {"name": "priors", "default": "None", "dtype": "n_classes"},
-                {"name": "var_smoothing", "default": "1e-9", "dtype": "float"}
+                {"name": "var_smoothing", "default": 1e-9, "dtype": "float"}
             ],
             "return": [
                 {"name": "class_log_prior_", "dtype": "array"},
@@ -279,15 +287,39 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
-                {"name": "learning_rate", "default": "0.1", "dtype": "float"},
-                {"name": "max_depth", "default": "3", "dtype": "int"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
+                {"name": "learning_rate", "default": 0.1, "dtype": "float"},
+                {"name": "max_depth", "default": 3, "dtype": "int or None"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
+                {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"},
+                {"name": "subsample", "default": 1.0, "dtype": "float"},
+                {"name": "criterion", "default": "friedman_mse", "dtype": "{'friedman_mse', 'squared_error'}"},
+                {"name": "min_weight_fraction_leaf", "default": 0.0, "dtype": "float"},
+                {"name": "init", "default": "None", "dtype": "estimator or 'zero'"},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None"},
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "max_leaf_nodes", "default": "None", "dtype": "int or None"},
+                {"name": "warm_start", "default": false, "dtype": "bool"},
+                {"name": "validation_fraction", "default": 0.1, "dtype": "float"},
+                {"name": "n_iter_no_change", "default": "None", "dtype": "int"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "ccp_alpha", "default": 0.0, "dtype": "non-negative float"},
+                {"name": "loss", "default": "squared_error", "dtype": "{'squared_error', 'absolute_error', 'huber', 'quantile'}"}
             ],
             "return": [
-                {"name": "estimators_", "dtype": "array of objects"}
+                {"name": "estimators_", "dtype": "array of objects"},
+                {"name": "feature_importances_", "dtype": "ndarray of shape (n_features,)"},
+                {"name": "oob_improvement_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_scores_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_score_", "dtype": "float"},
+                {"name": "train_score_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "init_estimator_", "dtype": "estimator"},
+                {"name": "estimators_", "dtype": "ndarray of DecisionTreeRegressor of shape (n_estimators, 1)"},
+                {"name": "n_estimators_", "dtype": "int"},
+                {"name": "n_features_in_", "dtype": "int"},
+                {"name": "feature_names_in_", "dtype": "ndarray of shape (n_features_in_,)"},
+                {"name": "max_features_", "dtype": "int"}
             ]
         },
         {
@@ -295,15 +327,40 @@
             "task": "Classification",
             "data": "Supervised, binary or multiclass data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
-                {"name": "learning_rate", "default": "0.1", "dtype": "float"},
-                {"name": "max_depth", "default": "3", "dtype": "int"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
-                {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
+                {"name": "learning_rate", "default": 0.1, "dtype": "float"},
+                {"name": "max_depth", "default": 3, "dtype": "int or None"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
+                {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"},
+                {"name": "subsample", "default": 1.0, "dtype": "float"},
+                {"name": "criterion", "default": "friedman_mse", "dtype": "{'friedman_mse', 'squared_error'}"},
+                {"name": "min_weight_fraction_leaf", "default": 0.0, "dtype": "float"},
+                {"name": "init", "default": "None", "dtype": "estimator or 'zero'"},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None"},
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "max_leaf_nodes", "default": "None", "dtype": "int or None"},
+                {"name": "warm_start", "default": false, "dtype": "bool"},
+                {"name": "validation_fraction", "default": 0.1, "dtype": "float"},
+                {"name": "n_iter_no_change", "default": "None", "dtype": "int"},
+                {"name": "tol", "default": 1e-4, "dtype": "float"},
+                {"name": "ccp_alpha", "default": 0.0, "dtype": "non-negative float"},
+                {"name": "loss", "default": "log_loss", "dtype": "{'log_loss', 'exponential'}"}
             ],
             "return": [
-                {"name": "estimators_", "dtype": "array of objects"}
+                {"name": "estimators_", "dtype": "array of objects"},
+                {"name": "feature_importances_", "dtype": "ndarray of shape (n_features,)"},
+                {"name": "oob_improvement_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_scores_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_score_", "dtype": "float"},
+                {"name": "train_score_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "init_estimator_", "dtype": "estimator"},
+                {"name": "estimators_", "dtype": "ndarray of DecisionTreeRegressor of shape (n_estimators, loss_.K)"},
+                {"name": "classes_", "dtype": "ndarray of shape (n_classes,)"},
+                {"name": "n_features_in_", "dtype": "int"},
+                {"name": "feature_names_in_", "dtype": "ndarray of shape (n_features_in_,)"},
+                {"name": "n_classes_", "dtype": "int"},
+                {"name": "max_features_", "dtype": "int"}
             ]
         },
         {
@@ -311,11 +368,11 @@
             "task": "Regression",
             "data": "Supervised, numerical data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
-                {"name": "learning_rate", "default": "0.1", "dtype": "float"},
-                {"name": "max_depth", "default": "3", "dtype": "int"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
+                {"name": "learning_rate", "default": 0.1, "dtype": "float"},
+                {"name": "max_depth", "default": 6, "dtype": "int or None"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
                 {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             ],
             "return": [
@@ -327,11 +384,11 @@
             "task": "Classification",
             "data": "Supervised, binary or multiclass data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
-                {"name": "learning_rate", "default": "0.1", "dtype": "float"},
-                {"name": "max_depth", "default": "3", "dtype": "int"},
-                {"name": "min_samples_split", "default": "2", "dtype": "int or float"},
-                {"name": "min_samples_leaf", "default": "1", "dtype": "int or float"},
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
+                {"name": "learning_rate", "default": 0.1, "dtype": "float"},
+                {"name": "max_depth", "default": 3, "dtype": "int or None"},
+                {"name": "min_samples_split", "default": 2, "dtype": "int or float"},
+                {"name": "min_samples_leaf", "default": 1, "dtype": "int or float"},
                 {"name": "max_features", "default": "None", "dtype": "int, float, or {'auto', 'sqrt', 'log2'}"}
             ],
             "return": [
@@ -343,12 +400,12 @@
             "task": "Unsupervised",
             "data": "Numerical data",
             "params": [
-                {"name": "eps", "default": "0.5", "dtype": "float"},
-                {"name": "min_samples", "default": "5", "dtype": "int"},
+                {"name": "eps", "default": 0.5, "dtype": "float"},
+                {"name": "min_samples", "default": 5, "dtype": "int"},
                 {"name": "metric", "default": "euclidean", "dtype": "str"},
                 {"name": "metric_params", "default": "None", "dtype": "dict"},
                 {"name": "algorithm", "default": "auto", "dtype": "str"},
-                {"name": "leaf_size", "default": "30", "dtype": "int"},
+                {"name": "leaf_size", "default": 30, "dtype": "int"},
                 {"name": "p", "default": "None", "dtype": "float"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"}
             ],
@@ -361,9 +418,11 @@
             "task": "Clustering",
             "data": "Unsupervised, numerical data",
             "params": [
-                {"name": "threshold", "default": "0.5", "dtype": "float"},
-                {"name": "branching_factor", "default": "50", "dtype": "int"},
-                {"name": "clusters", "default": "None", "dtype": "int"}
+                {"name": "threshold", "default": 0.5, "dtype": "float"},
+                {"name": "branching_factor", "default": 50, "dtype": "int"},
+                {"name": "clusters", "default": 3, "dtype": "int, instance of sklearn.cluster model, or None"},
+                {"name": "compute_labels", "default": true, "dtype": "bool"},
+                {"name": "copy", "default": true, "dtype": "bool"}
             ],
             "return": [
                 {"name": "Set of clusters", "dtype": "including centroids and covariance matrices"}
@@ -374,15 +433,15 @@
             "task": "Clustering",
             "data": "Unsupervised, numerical and binary data",
             "params": [
-                {"name": "n_estimators", "default": "100", "dtype": "int"},
+                {"name": "n_estimators", "default": 100, "dtype": "int"},
                 {"name": "max_samples", "default": "auto", "dtype": "int, float"},
-                {"name": "contamination", "default": "0.1", "dtype": "float or auto"},
-                {"name": "max_features", "default": "1.0", "dtype": "float"},
-                {"name": "bootstrap", "default": "False", "dtype": "bool"},
+                {"name": "contamination", "default": "auto", "dtype": "float or auto"},
+                {"name": "max_features", "default": 1.0, "dtype": "float"},
+                {"name": "bootstrap", "default": false, "dtype": "bool"},
                 {"name": "n_jobs", "default": "None", "dtype": "int"},
                 {"name": "random_state", "default": "None", "dtype": "int"},
-                {"name": "verbose", "default": "0", "dtype": "int"},
-                {"name": "warm_start", "default": "False", "dtype": "bool"}
+                {"name": "verbose", "default": 0, "dtype": "int"},
+                {"name": "warm_start", "default": false, "dtype": "bool"}
             ],
             "return": [
                 {"name": "selected", "dtype": "various parameters"}
