@@ -1,80 +1,80 @@
 {
     "available-preprocess": [
-    {
-        "name": "StandardScaler",
-        "params": [
-            {"name": "copy", "default": "True", "dtype": "bool"},
-            {"name": "with_mean", "default": "True", "dtype": "bool"},
-            {"name": "with_std", "default": "True", "dtype": "bool"}
-        ]
-    },
-    {
-        "name": "MinMaxScaler",
-        "params": [
-            {"name": "feature_range", "default": "(0, 1)", "dtype": "tuple"},
-            {"name": "copy", "default": "True", "dtype": "bool"},
-            {"name": "clip", "default": "False", "dtype": "bool"}
-        ]
-    },
-    {
-        "name": "RobustScaler",
-        "params": [
-            {"name": "with_centering", "default": "True", "dtype": "bool"},
-            {"name": "with_scaling", "default": "True", "dtype": "bool"},
-            {"name": "copy", "default": "True", "dtype": "bool"},
-            {"name": "quantile_range", "default": "(25.0, 75.0)", "dtype": "tuple"},
-            {"name": "unit_variance", "default": "False", "dtype": "bool"}
-        ]
-    },
-    {
-        "name": "Normalizer",
-        "params": [
-            {"name": "norm", "default": "l2", "dtype": "string"},
-            {"name": "copy", "default": "True", "dtype": "bool"}
-        ]
-    },
-    {
-        "name": "SimpleImputer",
-        "params": [
-            {"name": "missing_values", "default": "NaN"},
-            {"name": "strategy", "default": "mean", "dtype": "string"},
-            {"name": "fill_value", "default": "None"},
-            {"name": "copy", "default": "True", "dtype": "bool"},
-            {"name": "add_indicator", "default": "False", "dtype": "bool"},
-            {"name": "keep_empty_features", "default": "False", "dtype": "bool"}
-        ]
-    },
-    {
-        "name": "OneHotEncoder",
-        "params": [
-            {"name": "handle_unknown", "default": "ignore", "dtype": "string"},
-            {"name": "categories", "default": "auto", "dtype": "string"},
-            {"name": "drop", "default": "None", "dtype": "string"}, 
-            {"name": "sparse_output", "default": "True", "dtype": "bool"},
-            {"name": "min_frequency", "default": "None", "dtype": "float"},
-            {"name": "max_categories", "default": "None", "dtype": "int"},
-            {"name": "feature_name_combiner", "default": "concat", "dtype": "string"}
-        ]
-    },
-    {
-        "name": "OrdinalEncoder",
-        "params": [
-            {"name": "categories", "default": "auto"}
-        ]
-    },
-    {
-        "name": "LabelEncoder",
-        "params": [
-            {"name": "categories", "default": "auto"}
-        ]
-    },
-    {
-        "name": "PolynomialFeatures",
-        "params": [
-            {"name": "degree", "default": "2"},
-            {"name": "interaction_only", "default": "False"},
-            {"name": "include_bias", "default": "True"}
-        ]
-    }
-]
+        {
+            "name": "StandardScaler",
+            "params": [
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether to make a copy of the input data."},
+                {"name": "with_mean", "default": "True", "dtype": "bool", "comment": "Whether to center the data before scaling."},
+                {"name": "with_std", "default": "True", "dtype": "bool", "comment": "Whether to scale the data to unit variance."}
+            ]
+        },
+        {
+            "name": "MinMaxScaler",
+            "params": [
+                {"name": "feature_range", "default": "(0, 1)", "dtype": "tuple", "comment": "The desired range of transformed data."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether to make a copy of the input data."},
+                {"name": "clip", "default": "False", "dtype": "bool", "comment": "Whether to clip the transformed data to the feature range."}
+            ]
+        },
+        {
+            "name": "RobustScaler",
+            "params": [
+                {"name": "with_centering", "default": "True", "dtype": "bool", "comment": "Whether to center the data before scaling."},
+                {"name": "with_scaling", "default": "True", "dtype": "bool", "comment": "Whether to scale the data according to the interquartile range."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether to make a copy of the input data."},
+                {"name": "quantile_range", "default": "(25.0, 75.0)", "dtype": "tuple", "comment": "The interquartile range used to scale the data."},
+                {"name": "unit_variance", "default": "False", "dtype": "bool", "comment": "Whether to ensure unit variance of the scaled data."}
+            ]
+        },
+        {
+            "name": "Normalizer",
+            "params": [
+                {"name": "norm", "default": "l2", "dtype": "string", "comment": "The normalization norm to use."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether to make a copy of the input data."}
+            ]
+        },
+        {
+            "name": "SimpleImputer",
+            "params": [
+                {"name": "missing_values", "default": "NaN", "comment": "The placeholder for missing values."},
+                {"name": "strategy", "default": "mean", "dtype": "string", "comment": "The imputation strategy to use."},
+                {"name": "fill_value", "default": "None", "comment": "The fill value for constant imputation."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether to make a copy of the input data."},
+                {"name": "add_indicator", "default": "False", "dtype": "bool", "comment": "Whether to add a binary indicator for missing values."},
+                {"name": "keep_empty_features", "default": "False", "dtype": "bool", "comment": "Whether to keep empty features in the transformed data."}
+            ]
+        },
+        {
+            "name": "OneHotEncoder",
+            "params": [
+                {"name": "handle_unknown", "default": "ignore", "dtype": "string", "comment": "Strategy to handle unknown categories."},
+                {"name": "categories", "default": "auto", "dtype": "string", "comment": "Categories to use for encoding."},
+                {"name": "drop", "default": "None", "dtype": "string", "comment": "Categories to drop for each feature."},
+                {"name": "sparse_output", "default": "True", "dtype": "bool", "comment": "Whether to return sparse output."},
+                {"name": "min_frequency", "default": "None", "dtype": "float", "comment": "The minimum frequency a category should have to be kept."},
+                {"name": "max_categories", "default": "None", "dtype": "int", "comment": "Maximum number of categories to encode."},
+                {"name": "feature_name_combiner", "default": "concat", "dtype": "string", "comment": "The strategy to combine feature names in case of multicolumn output."}
+            ]
+        },
+        {
+            "name": "OrdinalEncoder",
+            "params": [
+                {"name": "categories", "default": "auto", "comment": "Categories to use for encoding."}
+            ]
+        },
+        {
+            "name": "LabelEncoder",
+            "params": [
+                {"name": "categories", "default": "auto", "comment": "Categories to use for encoding."}
+            ]
+        },
+        {
+            "name": "PolynomialFeatures",
+            "params": [
+                {"name": "degree", "default": "2", "comment": "The degree of the polynomial features."},
+                {"name": "interaction_only", "default": "False", "comment": "Whether to include only interaction features."},
+                {"name": "include_bias", "default": "True", "comment": "Whether to include a bias column of ones."}
+            ]
+        }
+    ]
 }
