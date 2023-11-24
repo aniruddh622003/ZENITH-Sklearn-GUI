@@ -11,8 +11,6 @@ app = Flask(__name__)
 CORS(app)
 
 app.config['Upload_Folder'] = 'api//uploads'
-
-dataset_present = False
 existing_num_rows = 0
 existing_num_columns = 0
 
@@ -60,7 +58,7 @@ def dataset_existing():
     return jsonify({"message": "No dataset is present"}), 404
  
 
-@app.route("/api/upload_and_process_file", methods=["GET", "POST"])
+@app.route("/api/upload_and_process_file", methods=["POST"])
 def upload_and_process_file_route():
     return upload_and_process_file(app)()
 
