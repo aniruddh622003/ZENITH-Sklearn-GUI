@@ -62,7 +62,7 @@ const UploadDataset = () => {
       window.location.href = "/flow/preprocess";
     }
   };
-  const upload = async (file) => {
+  const upload = async (file, outputColumn) => {
     if (!file) {
       setErr({
         error: true,
@@ -74,6 +74,7 @@ const UploadDataset = () => {
     // console.log(file ? file.name : "not present");
     const body = new FormData();
     body.append("file", file);
+    body.append("outputColumn", outputColumn);
     // await new Promise((r) => setTimeout(r, 2000));
     await fetch("/api/upload_and_process_file", {
       method: "POST",
@@ -84,6 +85,7 @@ const UploadDataset = () => {
         setDatasetInfo({
           rows: res.rows,
           columns: res.columns,
+          outcol: res.outcol,
         })
       );
     setSnackProgress((prev) => ({ ...prev, uploading: false, uploaded: true }));
@@ -123,7 +125,7 @@ const UploadDataset = () => {
               <AlertTitle>Dataset Uploaded Successfully</AlertTitle>
               <p>
                 Dataset Info - Rows: {datasetInfo.rows}, Columns:{" "}
-                {datasetInfo.columns}
+                {datasetInfo.columns}, Output Column: {datasetInfo.outcol}
               </p>
             </Alert>
           </Collapse>
