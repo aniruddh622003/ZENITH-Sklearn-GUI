@@ -274,7 +274,7 @@
             "task": "Classification",
             "data": "Supervised, binary or multiclass data",
             "params": [
-                {"name": "alpha", "default": "1.0", "dtype": "smoothing parameter", "comment": "Smoothing parameter."},
+                {"name": "alpha", "default": "1.0", "dtype": "float(smoothing parameter)", "comment": "Smoothing parameter."},
                 {"name": "priors", "default": "None", "dtype": "array-like of shape (n_classes,)", "comment": "Prior probabilities of the classes. If specified, the priors are not adjusted according to the data."},
                 {"name": "var_smoothing", "default": "1e-9", "dtype": "float", "comment": "Portion of the largest variance of all features that is added to variances for calculation stability. New in version 0.20."}
             ],
@@ -427,7 +427,7 @@
                 {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether or not to make a copy of the given data. If set to False, the initial data will be overwritten."}
             ],
             "return": [
-                {"name": "Set of clusters", "dtype": "including centroids and covariance matrices"}
+                {"name": "Set of clusters", "dtype": "dict(including centroids and covariance matrices)"}
             ]
         },
         {
