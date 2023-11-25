@@ -50,6 +50,7 @@
                 {"name": "handle_unknown", "default": "ignore", "dtype": "string", "comment": "Strategy to handle unknown categories."},
                 {"name": "categories", "default": "auto", "dtype": "string", "comment": "Categories to use for encoding."},
                 {"name": "drop", "default": "None", "dtype": "string", "comment": "Categories to drop for each feature."},
+                {"name": "sparse", "default": "True", "dtype": "bool", "comment": "Will return sparse matrix if set True else will return an array.", "deprecated": "since version 1.2. Use sparse_output instead."},
                 {"name": "sparse_output", "default": "True", "dtype": "bool", "comment": "Whether to return sparse output."},
                 {"name": "min_frequency", "default": "None", "dtype": "float", "comment": "The minimum frequency a category should have to be kept."},
                 {"name": "max_categories", "default": "None", "dtype": "int", "comment": "Maximum number of categories to encode."},
@@ -85,7 +86,8 @@
             "params": [
                 {"name": "degree", "default": "2", "comment": "The degree of the polynomial features."},
                 {"name": "interaction_only", "default": "False", "comment": "Whether to include only interaction features."},
-                {"name": "include_bias", "default": "True", "comment": "Whether to include a bias column of ones."}
+                {"name": "include_bias", "default": "True", "comment": "Whether to include a bias column of ones."},
+                {"name": "order", "default": "'C'", "dtype": "array", "comment": "Order of output array in the dense case. 'F' order is faster to compute, but may slow down subsequent estimators."}
             ]
         }
     ]

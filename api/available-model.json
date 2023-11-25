@@ -27,6 +27,7 @@
                 {"name": "tol", "default": "1e-4", "dtype": "float"},
                 {"name": "intercept_scaling", "default": "1", "dtype": "float"},
                 {"name": "class_weight", "default": "None", "dtype": "dict or 'balanced'"},
+                {"name": "fit_intercept", "default": "True", "dtype": "bool", "comment": "Specifies if a constant (a.k.a. bias or intercept) should be added to the decision function."},
                 {"name": "random_state", "default": "None", "dtype": "int or RandomState instance"},
                 {"name": "solver", "default": "lbfgs", "dtype": "str"},
                 {"name": "max_iter", "default": "100", "dtype": "int", "comment": "Maximum number of iterations taken for the solvers to converge."},
