@@ -45,6 +45,37 @@
             ]
         },
         {
+            "name": "Binarizer",
+            "params": [
+                {"name": "threshold", "default": "0.0", "dtype": "float", "comment": "Feature values below or equal to this are replaced by 0, above it by 1. Threshold may not be less than 0 for operations on sparse matrices."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Set to False to perform inplace binarization and avoid a copy (if the input is already a numpy array or a scipy.sparse CSR matrix)."}
+            ]
+        },
+        {
+            "name": "FunctionTransformer",
+            "params": [
+                {"name": "func", "default": "None", "dtype": "callable", "comment": "The callable to use for the transformation. If None, then func will be the identity function."},
+                {"name": "inverse_func", "default": "None", "dtype": "callable", "comment": "The callable to use for the inverse transformation. If None, then inverse_func will be the identity function."},
+                {"name": "validate", "default": "False", "dtype": "bool", "comment": "Indicate that the input X array should be checked before calling func."},
+                {"name": "accept_sparse", "default": "False", "dtype": "bool", "comment": "Indicate that func accepts a sparse matrix as input."},
+                {"name": "check_inverse", "default": "True", "dtype": "bool", "comment": "Whether to check that func followed by inverse_func leads to the original inputs."},
+                {"name": "feature_names_out", "default": "None", "dtype": "'one-to-one' or callable", "comment": "Determines the list of feature names that will be returned by the get_feature_names_out method."},
+                {"name": "kw_args", "default": "None", "dtype": "dict", "comment": "Dictionary of additional keyword arguments to pass to func."},
+                {"name": "inv_kw_args", "default": "None", "dtype": "dict", "comment": "Dictionary of additional keyword arguments to pass to inverse_func."}
+            ]
+        },
+        {
+            "name": "KBinsDiscretizer",
+            "params": [
+                {"name": "n_bins", "default": "5", "dtype": "int or array-like of shape (n_features,)", "comment": "The number of bins to produce. Raises ValueError if n_bins < 2."},
+                {"name": "encode", "default": "'onehot'", "dtype": "'onehot', 'onehot-dense', 'ordinal'", "comment": "Method used to encode the transformed result."},
+                {"name": "strategy", "default": "'quantile'", "dtype": "'uniform', 'quantile', 'kmeans'", "comment": "Strategy used to define the widths of the bins."},
+                {"name": "dtype", "default": "None", "dtype": "np.float32 or np.float64", "comment": "The desired data-type for the output. If None, output dtype is consistent with input dtype. Only np.float32 and np.float64 are supported. New in version 0.24."},
+                {"name": "subsample", "default": "'warn'", "dtype": "int or None", "comment": "Maximum number of samples, used to fit the model, for computational efficiency. Defaults to 200_000 when strategy='quantile' and to None when strategy='uniform' or strategy='kmeans'. subsample=None means that all the training samples are used when computing the quantiles that determine the binning thresholds. Since quantile computation relies on sorting each column of X and that sorting has an n log(n) time complexity, it is recommended to use subsampling on datasets with a very large number of samples. Changed in version 1.3: The default value of subsample changed from None to 200_000 when strategy='quantile'. Changed in version 1.5: The default value of subsample changed from None to 200_000 when strategy='uniform' or strategy='kmeans'."},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance, or None", "comment": "Determines random number generation for subsampling. Pass an int for reproducible results across multiple function calls. See the subsample parameter for more details. See Glossary."}
+            ]
+        },
+        {
             "name": "OneHotEncoder",
             "params": [
                 {"name": "handle_unknown", "default": "ignore", "dtype": "string", "comment": "Strategy to handle unknown categories."},
@@ -55,6 +86,14 @@
                 {"name": "min_frequency", "default": "None", "dtype": "float", "comment": "The minimum frequency a category should have to be kept."},
                 {"name": "max_categories", "default": "None", "dtype": "int", "comment": "Maximum number of categories to encode."},
                 {"name": "feature_name_combiner", "default": "concat", "dtype": "string", "comment": "The strategy to combine feature names in case of multicolumn output."}
+            ]
+        },
+        {
+            "name": "LabelBinarizer",
+            "params": [
+                {"name": "neg_label", "default": "0", "dtype": "int", "comment": "Value with which negative labels must be encoded."},
+                {"name": "pos_label", "default": "1", "dtype": "int", "comment": "Value with which positive labels must be encoded."},
+                {"name": "sparse_output", "default": "False", "dtype": "bool", "comment": "True if the returned array from transform is desired to be in sparse CSR format."}
             ]
         },
         {
@@ -72,13 +111,65 @@
         {
             "name": "LabelEncoder",
             "params": [
-                {"name": "categories", "default": "auto", "dtype": "'auto' or a list of array-like", "comment": "Categories (unique values) per feature. 'auto' determines categories automatically from the training data. If a list is provided, categories[i] holds the categories expected in the ith column. The passed categories should not mix strings and numeric values and should be sorted in case of numeric values. The used categories can be found in the categories_ attribute."},
-                {"name": "dtype", "default": "np.float64", "dtype": "number type", "comment": "Desired dtype of output."},
-                {"name": "handle_unknown", "default": "'error'", "dtype": "'error' or 'use_encoded_value'", "comment": "When set to 'error', an error will be raised if an unknown categorical feature is present during transform. When set to 'use_encoded_value', the encoded value of unknown categories will be set to the value given for the parameter unknown_value."},
-                {"name": "unknown_value", "default": "None", "dtype": "int or np.nan", "comment": "When handle_unknown is set to 'use_encoded_value', this parameter is required and sets the encoded value of unknown categories. It must be distinct from the values used to encode any of the categories in fit. If set to np.nan, the dtype parameter must be a float dtype."},
-                {"name": "encoded_missing_value", "default": "np.nan", "dtype": "int or np.nan", "comment": "Encoded value of missing categories. If set to np.nan, then the dtype parameter must be a float dtype."},
-                {"name": "min_frequency", "default": "None", "dtype": "int or float", "comment": "Specifies the minimum frequency below which a category will be considered infrequent. If int, categories with a smaller cardinality will be considered infrequent. If float, categories with a smaller cardinality than min_frequency * n_samples will be considered infrequent. New in version 1.3: Read more in the User Guide."},
-                {"name": "max_categories", "default": "None", "dtype": "int", "comment": "Specifies an upper limit to the number of output categories for each input feature when considering infrequent categories. If there are infrequent categories, max_categories includes the category representing the infrequent categories along with the frequent categories. If None, there is no limit to the number of output features. New in version 1.3: Read more in the User Guide."}
+                {"name": "neg_label", "default": "0", "dtype": "int", "comment": "Value with which negative labels must be encoded."},
+                {"name": "pos_label", "default": "1", "dtype": "int", "comment": "Value with which positive labels must be encoded."},
+                {"name": "sparse_output", "default": "False", "dtype": "bool", "comment": "True if the returned array from transform is desired to be in sparse CSR format."},
+                {"name": "classes", "dtype": "array-like of shape (n_classes,)", "default": "None", "comment": "Indicates an ordering for the class labels. All entries should be unique (cannot contain duplicate classes)."}
+            ]
+        },
+        {
+            "name": "PowerTransformer",
+            "params": [
+                {"name": "method", "default": "'yeo-johnson'", "dtype": "str", "comment": "The power transform method. Available methods are:\n\n'yeo-johnson' [1], works with positive and negative values\n\n'box-cox' [2], only works with strictly positive values"},
+                {"name": "standardize", "default": "True", "dtype": "bool", "comment": "Set to True to apply zero-mean, unit-variance normalization to the transformed output."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Set to False to perform inplace computation during transformation."}
+            ]
+        },
+        {
+            "name": "QuantileTransformer",
+            "params": [
+                {"name": "n_quantiles", "default": "1000 or n_samples", "dtype": "int", "comment": "Number of quantiles to be computed. It corresponds to the number of landmarks used to discretize the cumulative distribution function. If n_quantiles is larger than the number of samples, n_quantiles is set to the number of samples as a larger number of quantiles does not give a better approximation of the cumulative distribution function estimator."},
+                {"name": "output_distribution", "default": "'uniform'", "dtype": "str ", "comment": "Marginal distribution for the transformed data. The choices are 'uniform' (default) or 'normal'."},
+                {"name": "ignore_implicit_zeros", "default": "False", "dtype": "bool", "comment": "Only applies to sparse matrices. If True, the sparse entries of the matrix are discarded to compute the quantile statistics. If False, these entries are treated as zeros."},
+                {"name": "subsample", "default": "10_000", "dtype": "int", "comment": "Maximum number of samples used to estimate the quantiles for computational efficiency. Note that the subsampling procedure may differ for value-identical sparse and dense matrices."},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None", "comment": "Determines random number generation for subsampling and smoothing noise. Please see subsample for more details. Pass an int for reproducible results across multiple function calls. See Glossary."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Set to False to perform inplace transformation and avoid a copy (if the input is already a numpy array)."}
+            ]
+        },
+        {
+            "name": "SplineTransformer",
+            "params": [
+                {"name": "n_knots", "default": "5", "dtype": "int", "comment": "Number of knots of the splines if knots equals one of {'uniform', 'quantile'}. Must be larger or equal 2. Ignored if knots is array-like."},
+                {"name": "degree", "default": "3", "dtype": "int", "comment": "The polynomial degree of the spline basis. Must be a non-negative integer."},
+                {"name": "knots", "default": "'uniform'", "dtype": "str, array-like of shape (n_knots, n_features)", "comment": "Set knot positions such that first knot <= features <= last knot.\n\nIf 'uniform', n_knots number of knots are distributed uniformly from min to max values of the features.\n\nIf 'quantile', they are distributed uniformly along the quantiles of the features.\n\nIf an array-like is given, it directly specifies the sorted knot positions including the boundary knots. Note that, internally, degree number of knots are added before the first knot, the same after the last knot."},
+                {"name": "extrapolation", "default": "'constant'", "dtype": "'error', 'constant', 'linear', 'continue', 'periodic'", "comment": "If 'error', values outside the min and max values of the training features raises a ValueError. If 'constant', the value of the splines at minimum and maximum value of the features is used as constant extrapolation. If 'linear', a linear extrapolation is used. If 'continue', the splines are extrapolated as is, i.e. option extrapolate=True in scipy.interpolate.BSpline. If 'periodic', periodic splines with a periodicity equal to the distance between the first and last knot are used. Periodic splines enforce equal function values and derivatives at the first and last knot."},
+                {"name": "include_bias", "default": "True", "dtype": "bool", "comment": "If False, then the last spline element inside the data range of a feature is dropped. As B-splines sum to one over the spline basis functions for each data point, they implicitly include a bias term, i.e. a column of ones. It acts as an intercept term in a linear models."},
+                {"name": "order", "default": "'C'", "dtype": "str", "comment": "Order of output array in the dense case. 'F' order is faster to compute, but may slow down subsequent estimators."},
+                {"name": "sparse_output", "default": "False", "dtype": "bool", "comment": "Will return sparse CSR matrix if set True else will return an array. This option is only available with scipy>=1.8."}
+            ]
+        },
+        {
+            "name": "TargetEncoder",
+            "params": [
+                {"name": "categories", "default": "'auto' or list of shape (n_features,) of array-like", "comment": "Categories (unique values) per feature:\n\n'auto' : Determine categories automatically from the training data.\n\nlist : categories[i] holds the categories expected in the i-th column. The passed categories should not mix strings and numeric values within a single feature, and should be sorted in case of numeric values.\n\nThe used categories are stored in the categories_ fitted attribute."},
+                {"name": "target_type", "default": "'auto'", "dtype": "'auto', 'continuous', 'binary'", "comment": "Type of target:\n\nauto : Type of target is inferred with type_of_target.\n\ncontinuous : Continuous target\n\nbinary : Binary target\n\nNote The type of target inferred with auto may not be the desired target type used for modeling. For example, if the target consisted of integers between 0 and 100, then type_of_target will infer the target as multiclass. In this case, setting target_type=continuous, will specify the target as a regression problem. The target_type_ attribute gives the target type used by the encoder."},
+                {"name": "smooth", "default": "'auto' or float", "comment": "The amount of mixing of the target mean conditioned on the value of the category with the global target mean. A larger smooth value will put more weight on the global target mean. If auto, then smooth is set to an empirical Bayes estimate."},
+                {"name": "cv", "default": "5", "dtype": "int", "comment": "Determines the number of folds in the cross-fitting strategy used in fit_transform. For classification targets, StratifiedKFold is used and for continuous targets, KFold is used."},
+                {"name": "shuffle", "default": "True", "dtype": "bool", "comment": "Whether to shuffle the data in fit_transform before splitting into folds. Note that the samples within each split will not be shuffled."},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None", "comment": "When shuffle is True, random_state affects the ordering of the indices, which controls the randomness of each fold. Otherwise, this parameter has no effect. Pass an int for reproducible output across multiple function calls. See Glossary."}
+            ]
+        },
+        {
+            "name": "MultiLabelBinarizer",
+            "params": [
+                {"name": "classes", "default": "None", "dtype": "array-like of shape (n_classes,)", "comment": "Indicates an ordering for the class labels. All entries should be unique (cannot contain duplicate classes)."},
+                {"name": "sparse_output", "default": "False", "dtype": "bool", "comment": "Set to True if the output binary array is desired in CSR sparse format."}
+            ]
+        },
+        {
+            "name": "MaxAbsScaler",
+            "params": [
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Set to False to perform inplace scaling and avoid a copy (if the input is already a numpy array)."}
             ]
         },
         {
