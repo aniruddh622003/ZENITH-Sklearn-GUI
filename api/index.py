@@ -11,6 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 app.config['Upload_Folder'] = 'api//uploads'
+app.config['Output_Folder'] = 'api//outputs'
 existing_num_rows = 0
 existing_num_columns = 0
 

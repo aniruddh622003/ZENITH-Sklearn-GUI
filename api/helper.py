@@ -27,6 +27,9 @@ def upload_and_process_file(app):
         
         if not os.path.exists(app.config['Upload_Folder']):
             os.makedirs(app.config['Upload_Folder'])
+
+        if not os.path.exists(app.config['Output_Folder']):
+            os.makedirs(app.config['Output_Folder'])
         
         if 'file' not in request.files:
             return jsonify({"error": "No file part"}), 400
