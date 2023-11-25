@@ -100,7 +100,7 @@
                 {"name": "class_weight", "default": "None", "dtype": "dict or ‘balanced’", "comment": "Set the parameter C of class i to class_weight[i]*C for SVC. If not given, all classes are supposed to have weight one."},
                 {"name": "verbose", "default": "False", "dtype": "bool", "comment": "Enable verbose output. Note that this setting takes advantage of a per-process runtime setting in libsvm."},
                 {"name": "max_iter", "default": "-1", "dtype": "int", "comment": "Hard limit on iterations within solver, or -1 for no limit."},
-                {"name": "decision_function_shape", "default": "tr", "dtype": "str (ovr, ovo)", "comment": "Whether to return a one-vs-rest (‘ovr’) decision function or the original one-vs-one (‘ovo’) decision function."}
+                {"name": "decision_function_shape", "default": "ovr", "dtype": "str ", "comment": "Whether to return a one-vs-rest (‘ovr’) decision function or the original one-vs-one (‘ovo’) decision function."}
             ],
             "return": [
                 {"name": "support_", "dtype": "array", "comment": "Indices of support vectors."},
@@ -427,7 +427,7 @@
                 {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether or not to make a copy of the given data. If set to False, the initial data will be overwritten."}
             ],
             "return": [
-                {"name": "Set of clusters", "dtype": "dict(including centroids and covariance matrices)"}
+                {"name": "Set of clusters", "dtype": "dict"}
             ]
         },
         {
