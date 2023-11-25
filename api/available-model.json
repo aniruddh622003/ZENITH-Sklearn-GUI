@@ -28,7 +28,14 @@
                 {"name": "intercept_scaling", "default": "1", "dtype": "float"},
                 {"name": "class_weight", "default": "None", "dtype": "dict or 'balanced'"},
                 {"name": "random_state", "default": "None", "dtype": "int or RandomState instance"},
-                {"name": "solver", "default": "lbfgs", "dtype": "str"}
+                {"name": "solver", "default": "lbfgs", "dtype": "str"},
+                {"name": "max_iter", "default": "100", "dtype": "int", "comment": "Maximum number of iterations taken for the solvers to converge."},
+                {"name": "multi_class", "default": "'auto'", "dtype": "'auto', 'ovr', 'multinomial'", "comment": "If the option chosen is ‘ovr’, then a binary problem is fit for each label. For ‘multinomial’ the loss minimized is the multinomial loss fit across the entire probability distribution."},
+                {"name": "verbose", "default": "0", "dtype": "int", "comment": "For the liblinear and lbfgs solvers set verbose to any positive number for verbosity."},
+                {"name": "warm_start", "default": "False", "dtype": "bool", "comment": "When set to True, reuse the solution of the previous call to fit as initialization."},
+                {"name": "n_jobs", "default": "None", "dtype": "int", "comment": "Number of CPU cores used when parallelizing over classes if multi_class='ovr'."},
+                {"name": "l1_ratio", "default": "None", "dtype": "float", "comment": "The Elastic-Net mixing parameter, with 0 <= l1_ratio <= 1. Only used if penalty='elasticnet'."}
+                
             ],
             "return": [
                 {"name": "coef_", "dtype": "array", "comment": "Coefficient of the features."},
