@@ -18,7 +18,7 @@ existing_num_columns = 0
 
 @app.route("/api/available-preprocess", methods=["GET"])
 def get_available_preprocess():
-    f = open("api/available-preprocess-dev.json")
+    f = open("api/available-preprocess.json")
     return json.load(f)
 
 @app.route("/api/preprocess", methods=["POST"])
