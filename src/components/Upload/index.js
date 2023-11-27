@@ -2,9 +2,12 @@
 import React, { useEffect, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import styles from "./index.module.css";
-import { Button } from "@mui/material";
+import { Autocomplete, Box, Button, Collapse, TextField } from "@mui/material";
 
 const Upload = ({ onSubmit }) => {
+  const [readyToUpload, setReadyToUpload] = React.useState(false);
+  const [outputColumn, setOutputColumn] = React.useState(null);
+  const [outputOptions, setOutputOptions] = React.useState([]);
   const {
     acceptedFiles,
     getRootProps,
@@ -23,6 +26,25 @@ const Upload = ({ onSubmit }) => {
             `;
   }, [isFocused, isDragAccept, isDragReject, acceptedFiles]);
 
+  useEffect(() => {
+    if (acceptedFiles.length > 0) {
+      console.log(acceptedFiles[0]);
+      let reader = new FileReader();
+      reader.readAsText(acceptedFiles[0]);
+      reader.onload = function () {
+        let text = reader.result;
+        let lines = text.split("\n");
+        let headers = lines[0].split(",");
+        let options = [];
+        for (let i = 0; i < headers.length; i++) {
+          options.push({ label: headers[i], value: i });
+        }
+        console.log(options);
+        setOutputOptions(options);
+      };
+    }
+  }, [acceptedFiles]);
+
   const getFileSize = (size) => {
     if (size < 1024) {
       return `${size} bytes`;
@@ -38,7 +60,7 @@ const Upload = ({ onSubmit }) => {
   };
 
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         flexDirection: "column",
@@ -53,7 +75,7 @@ const Upload = ({ onSubmit }) => {
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <p>
-            Drag 'n' drop some files here, or click to select files.
+            Drag &apos;n&apos; drop some files here, or click to select files.
             <br />
             Upload Limit: 1. New files will overwrite older ones.
           </p>
@@ -71,10 +93,32 @@ const Upload = ({ onSubmit }) => {
           </ul>
         </aside>
       </div>
-      <Button variant="contained" onClick={() => onSubmit(acceptedFiles[0])}>
+      <Collapse sx={{ width: "100%" }} in={acceptedFiles.length != 0}>
+        <Autocomplete
+          fullWidth
+          options={outputOptions}
+          value={outputColumn}
+          onChange={(event, newValue) => {
+            setOutputColumn(newValue);
+            setReadyToUpload(true);
+          }}
+          renderInput={(params) => (
+            <TextField
+              fullWidth
+              {...params}
+              label="Please Select the Output Column"
+            />
+          )}
+        ></Autocomplete>
+      </Collapse>
+      <Button
+        variant="contained"
+        disabled={!readyToUpload}
+        onClick={() => onSubmit(acceptedFiles[0], outputColumn.label)}
+      >
         Upload
       </Button>
-    </div>
+    </Box>
   );
 };
 

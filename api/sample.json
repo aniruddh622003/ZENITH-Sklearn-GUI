@@ -1,3 +1,20 @@
+
+// {
+//     "name": ,
+//     "task": ,
+//     "data": ",
+//     "params": [
+//         {"name": , "default": , "dtype": , "comment": },
+       
+//     "return": [
+//         {"name": , "dtype": , "comment": }
+//     ]
+// }
+
+
+
+
+
 {
     "available-model": [
         {
@@ -27,16 +44,8 @@
                 {"name": "tol", "default": "1e-4", "dtype": "float"},
                 {"name": "intercept_scaling", "default": "1", "dtype": "float"},
                 {"name": "class_weight", "default": "None", "dtype": "dict or 'balanced'"},
-                {"name": "fit_intercept", "default": "True", "dtype": "bool", "comment": "Specifies if a constant (a.k.a. bias or intercept) should be added to the decision function."},
                 {"name": "random_state", "default": "None", "dtype": "int or RandomState instance"},
-                {"name": "solver", "default": "lbfgs", "dtype": "str"},
-                {"name": "max_iter", "default": "100", "dtype": "int", "comment": "Maximum number of iterations taken for the solvers to converge."},
-                {"name": "multi_class", "default": "'auto'", "dtype": "'auto', 'ovr', 'multinomial'", "comment": "If the option chosen is ‘ovr’, then a binary problem is fit for each label. For ‘multinomial’ the loss minimized is the multinomial loss fit across the entire probability distribution."},
-                {"name": "verbose", "default": "0", "dtype": "int", "comment": "For the liblinear and lbfgs solvers set verbose to any positive number for verbosity."},
-                {"name": "warm_start", "default": "False", "dtype": "bool", "comment": "When set to True, reuse the solution of the previous call to fit as initialization."},
-                {"name": "n_jobs", "default": "None", "dtype": "int", "comment": "Number of CPU cores used when parallelizing over classes if multi_class='ovr'."},
-                {"name": "l1_ratio", "default": "None", "dtype": "float", "comment": "The Elastic-Net mixing parameter, with 0 <= l1_ratio <= 1. Only used if penalty='elasticnet'."}
-                
+                {"name": "solver", "default": "lbfgs", "dtype": "str"}
             ],
             "return": [
                 {"name": "coef_", "dtype": "array", "comment": "Coefficient of the features."},
@@ -79,7 +88,7 @@
                 {"name": "warm_start", "default": "False", "dtype": "bool", "comment": "When set to True, reuse the solution of the previous call to fit as initialization, otherwise, just erase the previous solution. See the Glossary."},
                 {"name": "positive", "default": "False", "dtype": "bool", "comment": "When set to True, forces the coefficients to be positive."},
                 {"name": "random_state", "default": "null", "dtype": "int or RandomState instance", "comment": "The seed of the pseudo-random number generator that selects a random feature to update. Used when selection == 'random'. Pass an int for reproducible output across multiple function calls. See Glossary."},
-                {"name": "selection", "default": "cyclic", "dtype": "str ", "comment": "If set to 'random', a random coefficient is updated every iteration rather than looping over features sequentially by default."}
+                {"name": "selection", "default": "cyclic", "dtype": "str (cyclic, random)", "comment": "If set to 'random', a random coefficient is updated every iteration rather than looping over features sequentially by default."}
             ],
             "return": [
                 {"name": "coef_", "dtype": "array", "comment": "Parameter vector (w in the cost function formula)."},
@@ -108,7 +117,7 @@
                 {"name": "class_weight", "default": "None", "dtype": "dict or ‘balanced’", "comment": "Set the parameter C of class i to class_weight[i]*C for SVC. If not given, all classes are supposed to have weight one."},
                 {"name": "verbose", "default": "False", "dtype": "bool", "comment": "Enable verbose output. Note that this setting takes advantage of a per-process runtime setting in libsvm."},
                 {"name": "max_iter", "default": "-1", "dtype": "int", "comment": "Hard limit on iterations within solver, or -1 for no limit."},
-                {"name": "decision_function_shape", "default": "ovr", "dtype": "str ", "comment": "Whether to return a one-vs-rest (‘ovr’) decision function or the original one-vs-one (‘ovo’) decision function."}
+                {"name": "decision_function_shape", "default": "ovr", "dtype": "str (ovr, ovo)", "comment": "Whether to return a one-vs-rest (‘ovr’) decision function or the original one-vs-one (‘ovo’) decision function."}
             ],
             "return": [
                 {"name": "support_", "dtype": "array", "comment": "Indices of support vectors."},
@@ -282,7 +291,7 @@
             "task": "Classification",
             "data": "Supervised, binary or multiclass data",
             "params": [
-                {"name": "alpha", "default": "1.0", "dtype": "float", "comment": "Smoothing parameter."},
+                {"name": "alpha", "default": "1.0", "dtype": "smoothing parameter", "comment": "Smoothing parameter."},
                 {"name": "priors", "default": "None", "dtype": "array-like of shape (n_classes,)", "comment": "Prior probabilities of the classes. If specified, the priors are not adjusted according to the data."},
                 {"name": "var_smoothing", "default": "1e-9", "dtype": "float", "comment": "Portion of the largest variance of all features that is added to variances for calculation stability. New in version 0.20."}
             ],
@@ -315,7 +324,7 @@
                 {"name": "n_iter_no_change", "default": "None", "dtype": "int", "comment": "n_iter_no_change is used to decide if early stopping will be used to terminate training when validation score is not improving. By default, it is set to None to disable early stopping. If set to a number, it will set aside validation_fraction size of the training data as validation and terminate training when validation score is not improving in all of the previous n_iter_no_change numbers of iterations. The split is stratified. Values must be in the range [1, inf). New in version 0.20."},
                 {"name": "tol", "default": "1e-4", "dtype": "float", "comment": "Tolerance for the early stopping. When the loss is not improving by at least tol for n_iter_no_change iterations, the training stops. Values must be in the range [0.0, inf). New in version 0.20."},
                 {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float", "comment": "Complexity parameter used for Minimal Cost-Complexity Pruning. The subtree with the largest cost complexity that is smaller than ccp_alpha will be chosen. By default, no pruning is performed. Values must be in the range [0.0, inf). See Minimal Cost-Complexity Pruning for details. New in version 0.22."},
-                {"name": "loss", "default": "squared_error", "dtype": "str", "comment": "Loss function to be optimized. 'squared_error' refers to the squared error for regression. 'absolute_error' refers to the absolute error of regression and is a robust loss function. 'huber' is a combination of the two. 'quantile' allows quantile regression (use alpha to specify the quantile)."}
+                {"name": "loss", "default": "squared_error", "dtype": "{'squared_error', 'absolute_error', 'huber', 'quantile'}", "comment": "Loss function to be optimized. 'squared_error' refers to the squared error for regression. 'absolute_error' refers to the absolute error of regression and is a robust loss function. 'huber' is a combination of the two. 'quantile' allows quantile regression (use alpha to specify the quantile)."}
             ],
             "return": [
                 {"name": "estimators_", "dtype": "array of objects"},
@@ -346,7 +355,7 @@
                 {"name": "subsample", "default": "1.0", "dtype": "float", "comment": "The fraction of samples to be used for fitting the individual base learners. If smaller than 1.0 this results in Stochastic Gradient Boosting. subsample interacts with the parameter n_estimators. Choosing subsample < 1.0 leads to a reduction of variance and an increase in bias. Values must be in the range (0.0, 1.0]."},
                 {"name": "criterion", "default": "friedman_mse", "dtype": "{'friedman_mse', 'squared_error'}", "comment": "The function to measure the quality of a split. Supported criteria are 'friedman_mse' for the mean squared error with improvement score by Friedman, 'squared_error' for mean squared error. The default value of 'friedman_mse' is generally the best as it can provide a better approximation in some cases. New in version 0.18."},
                 {"name": "min_weight_fraction_leaf", "default": "0.0", "dtype": "float", "comment": "The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node. Samples have equal weight when sample_weight is not provided. Values must be in the range [0.0, 0.5]."},
-                {"name": "init", "default": "None", "dtype": "object or 'zero'", "comment": "An estimator object that is used to compute the initial predictions. init has to provide fit and predict_proba. If 'zero', the initial raw predictions are set to zero. By default, a DummyEstimator predicting the classes priors is used."},
+                {"name": "init", "default": "None", "dtype": "estimator or 'zero'", "comment": "An estimator object that is used to compute the initial predictions. init has to provide fit and predict_proba. If 'zero', the initial raw predictions are set to zero. By default, a DummyEstimator predicting the classes priors is used."},
                 {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None", "comment": "Controls the random seed given to each Tree estimator at each boosting iteration. In addition, it controls the random permutation of the features at each split. It also controls the random splitting of the training data to obtain a validation set if n_iter_no_change is not None. Pass an int for reproducible output across multiple function calls. See Glossary."},
                 {"name": "verbose", "default": "0", "dtype": "int", "comment": "Enable verbose output. If 1 then it prints progress and performance once in a while. If greater than 1 then it prints progress and performance for every tree. Values must be in the range [0, inf)."},
                 {"name": "max_leaf_nodes", "default": "None", "dtype": "int or None", "comment": "Grow trees with max_leaf_nodes in best-first fashion. Best nodes are defined as relative reduction in impurity. Values must be in the range [2, inf). If None, then unlimited number of leaf nodes."},
@@ -355,7 +364,7 @@
                 {"name": "n_iter_no_change", "default": "None", "dtype": "int", "comment": "n_iter_no_change is used to decide if early stopping will be used to terminate training when validation score is not improving. By default, it is set to None to disable early stopping. If set to a number, it will set aside validation_fraction size of the training data as validation and terminate training when validation score is not improving in all of the previous n_iter_no_change numbers of iterations. The split is stratified. Values must be in the range [1, inf). New in version 0.20."},
                 {"name": "tol", "default": "1e-4", "dtype": "float", "comment": "Tolerance for the early stopping. When the loss is not improving by at least tol for n_iter_no_change iterations, the training stops. Values must be in the range [0.0, inf). New in version 0.20."},
                 {"name": "ccp_alpha", "default": "0.0", "dtype": "non-negative float", "comment": "Complexity parameter used for Minimal Cost-Complexity Pruning. The subtree with the largest cost complexity that is smaller than ccp_alpha will be chosen. By default, no pruning is performed. Values must be in the range [0.0, inf). See Minimal Cost-Complexity Pruning for details. New in version 0.22."},
-                {"name": "loss", "default": "log_loss", "dtype": "str", "comment": "The loss function to be optimized. 'log_loss' refers to binomial and multinomial deviance, the same as used in logistic regression. It is a good choice for classification with probabilistic outputs. For loss 'exponential', gradient boosting recovers the AdaBoost algorithm."}
+                {"name": "loss", "default": "log_loss", "dtype": "{'log_loss', 'exponential'}", "comment": "The loss function to be optimized. 'log_loss' refers to binomial and multinomial deviance, the same as used in logistic regression. It is a good choice for classification with probabilistic outputs. For loss 'exponential', gradient boosting recovers the AdaBoost algorithm."}
             ],
             "return": [
                 {"name": "estimators_", "dtype": "array of objects"},
@@ -364,7 +373,7 @@
                 {"name": "oob_scores_", "dtype": "ndarray of shape (n_estimators,)"},
                 {"name": "oob_score_", "dtype": "float"},
                 {"name": "train_score_", "dtype": "ndarray of shape (n_estimators,)"},
-                {"name": "init_estimator_", "dtype": "object"},
+                {"name": "init_estimator_", "dtype": "estimator"},
                 {"name": "estimators_", "dtype": "ndarray of DecisionTreeRegressor of shape (n_estimators, loss_.K)"},
                 {"name": "classes_", "dtype": "ndarray of shape (n_classes,)"},
                 {"name": "n_features_in_", "dtype": "int"},
@@ -412,12 +421,12 @@
             "params": [
                 {"name": "eps", "default": "0.5", "dtype": "float", "comment": "The maximum distance between two samples for one to be considered as in the neighborhood of the other. This is not a maximum bound on the distances of points within a cluster. This is the most important DBSCAN parameter to choose appropriately for your data set and distance function."},
                 {"name": "min_samples", "default": "5", "dtype": "int", "comment": "The number of samples (or total weight) in a neighborhood for a point to be considered as a core point. This includes the point itself. If min_samples is set to a higher value, DBSCAN will find denser clusters, whereas if it is set to a lower value, the found clusters will be more sparse."},
-                {"name": "metric", "default": "euclidean", "dtype": "str", "comment": "The metric to use when calculating distance between instances in a feature array."},
-                {"name": "metric_params", "default": "None", "dtype": "dict", "comment": "Additional keyword arguments for the metric function."},
+                {"name": "metric", "default": "euclidean", "dtype": "str", "comment": "The metric to use when calculating distance between instances in a feature array. If metric is a string or callable, it must be one of the options allowed by sklearn.metrics.pairwise_distances for its metric parameter. If metric is “precomputed”, X is assumed to be a distance matrix and must be square. X may be a sparse graph, in which case only “nonzero” elements may be considered neighbors for DBSCAN. New in version 0.17: metric precomputed to accept precomputed sparse matrix."},
+                {"name": "metric_params", "default": "None", "dtype": "dict", "comment": "Additional keyword arguments for the metric function. New in version 0.19."},
                 {"name": "algorithm", "default": "auto", "dtype": "str", "comment": "The algorithm to be used by the NearestNeighbors module to compute pointwise distances and find nearest neighbors. See NearestNeighbors module documentation for details."},
                 {"name": "leaf_size", "default": "30", "dtype": "int", "comment": "Leaf size passed to BallTree or cKDTree. This can affect the speed of the construction and query, as well as the memory required to store the tree. The optimal value depends on the nature of the problem."},
                 {"name": "p", "default": "None", "dtype": "float", "comment": "The power of the Minkowski metric to be used to calculate distance between points. If None, then p=2 (equivalent to the Euclidean distance)."},
-                {"name": "n_jobs", "default": "None", "dtype": "int", "comment": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors."}
+                {"name": "n_jobs", "default": "None", "dtype": "int", "comment": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details."}
             ],
             "return": [
                 {"name": "labels_", "dtype": "array", "comment": "Cluster labels for each point in the dataset given to fit(). Noisy samples are given the label -1."}
@@ -430,12 +439,12 @@
             "params": [
                 {"name": "threshold", "default": "0.5", "dtype": "float", "comment": "The radius of the subcluster obtained by merging a new sample and the closest subcluster should be lesser than the threshold. Setting this value to be very low promotes splitting and vice-versa."},
                 {"name": "branching_factor", "default": "50", "dtype": "int", "comment": "Maximum number of CF subclusters in each node. If a new sample enters such that the number of subclusters exceeds the branching_factor, then that node is split into two nodes with the subclusters redistributed in each."},
-                {"name": "clusters", "default": "30", "dtype": "int, None", "comment": "Number of clusters after the final clustering step, which treats the subclusters from the leaves as new samples. If None, the final clustering step is not performed, and the subclusters are returned as they are."},
+                {"name": "clusters", "default": "30", "dtype": "int, instance of sklearn.cluster model, or None", "comment": "Number of clusters after the final clustering step, which treats the subclusters from the leaves as new samples. If None, the final clustering step is not performed, and the subclusters are returned as they are."},
                 {"name": "compute_labels", "default": "True", "dtype": "bool", "comment": "Whether or not to compute labels for each fit."},
                 {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether or not to make a copy of the given data. If set to False, the initial data will be overwritten."}
             ],
             "return": [
-                {"name": "Set of clusters", "dtype": "dict"}
+                {"name": "Set of clusters", "dtype": "including centroids and covariance matrices"}
             ]
         },
         {
@@ -449,7 +458,7 @@
                 {"name": "contamination", "default": "auto", "dtype": "float or auto", "description": "The amount of contamination in the dataset. It represents the proportion of outliers in the dataset. If 'auto', it is set to the empirical contamination estimate, which is the proportion of samples that are outliers."},
                 {"name": "max_features", "default": "1.0", "dtype": "float", "description": "The number of features to draw from the input data to train each base estimator. If 1.0, it uses all features for each base estimator. Smaller values may reduce overfitting."},
                 {"name": "bootstrap", "default": "False", "dtype": "bool", "description": "If true, individual trees are fit on bootstrap samples of the input data. If false, the entire dataset is used to build each tree. Setting this parameter to true may improve performance."},
-                {"name": "n_jobs", "default": "N    one", "dtype": "int", "description": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. More jobs may result in faster execution but also increase memory consumption."},
+                {"name": "n_jobs", "default": "None", "dtype": "int", "description": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. More jobs may result in faster execution but also increase memory consumption."},
                 {"name": "random_state", "default": "None", "dtype": "int", "description": "Controls the randomness of the estimator. If int, random_state is the seed used by the random number generator; if None, the random number generator is the RandomState instance used by np.random."},
                 {"name": "verbose", "default": "0", "dtype": "int", "description": "Controls the verbosity of the output during training. If 0, no output; if 1, some progress information; if greater than 1, the computation time for each tree is displayed."},
                 {"name": "warm_start", "default": "False", "dtype": "bool", "description": "If true, reuse the solution of the previous call to fit and add more estimators to the ensemble; otherwise, start with a new ensemble. Enabling warm_start can be useful for incremental training."}
@@ -461,9 +470,3 @@
         
     ]
 }
-
-
-
-
-
-
