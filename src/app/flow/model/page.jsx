@@ -1,5 +1,3 @@
-//spacing between positive nd radio button
-// info button
 "use client";
 import React, { useState, useEffect } from "react";
 import ComboBox from "../../../components/AutoComplete";
@@ -133,68 +131,90 @@ const ModelPage = () => {
               const defaultV = k.default;
               return (
                 <React.Fragment key={paramName}>
-                  {paramType === "bool" ? (
-                    <>
-                      <Box mb="10px">
-                        <InputLabel>{paramName}</InputLabel>
-                      </Box>
-                      <FormControlLabel
-                        control={
-                          <Radio
-                            checked={
-                              paramValue[paramName] === true ||
-                              paramValue[paramName] === undefined
-                            }
-                            onChange={() =>
-                              setParamValue((prevValues) => ({
-                                ...prevValues,
-                                [paramName]: !prevValues[paramName],
-                              }))
-                            }
-                          />
-                        }
-                        label="True"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Radio
-                            checked={paramValue[paramName] === false}
-                            onChange={() =>
-                              setParamValue((prevValues) => ({
-                                ...prevValues,
-                                [paramName]: !prevValues[paramName],
-                              }))
-                            }
-                          />
-                        }
-                        label="False"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <TextField
-                          sx={{ height: "100%", width: "100%" }}
-                          label={k[0]}
-                          // type={paramType === "int" ? "number" : "text"}
-                          type={
-                            ["int", "float", "str"].includes(paramType)
-                              ? "text"
-                              : "number"
-                          }
-                        />
-                        {["int", "float", "str"].includes(paramType) && (
-                          <IconButton
-                            style={{ marginLeft: "5px" }}
-                            //
+                  <Box
+                    mb="10px"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {paramType === "bool" ? (
+                        <>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "start",
+                              ml: "20px",
+                            }}
                           >
+                            <InputLabel sx={{ fontSize: "small" }}>
+                              {paramName}
+                            </InputLabel>
+                            <FormControlLabel
+                              control={
+                                <Radio
+                                  checked={
+                                    paramValue[paramName] == true ||
+                                    paramValue[paramName] == undefined
+                                  }
+                                  onChange={() =>
+                                    setParamValue((prevValues) => ({
+                                      ...prevValues,
+                                      [paramName]: !prevValues[paramName],
+                                    }))
+                                  }
+                                />
+                              }
+                              label="True"
+                            />
+                            <FormControlLabel
+                              control={
+                                <Radio
+                                  checked={paramValue[paramName] == false}
+                                  onChange={() =>
+                                    setParamValue((prevValues) => ({
+                                      ...prevValues,
+                                      [paramName]: !prevValues[paramName],
+                                    }))
+                                  }
+                                />
+                              }
+                              label="False"
+                            />
+                          </Box>
+                          <IconButton title={paramComment}>
                             <HiInformationCircle />
                           </IconButton>
-                        )}
-                      </Box>
-                      <Box mb="10px"></Box>
-                    </>
-                  )}
+                        </>
+                      ) : paramType === "int" ||
+                        paramType === "float" ||
+                        paramType === "str" ? (
+                        <>
+                          <TextField
+                            sx={{ height: "100%", width: "100%" }}
+                            label={paramName}
+                            type={
+                              ["int", "float"].includes(paramType)
+                                ? "number"
+                                : "text"
+                            }
+                            defaultValue={defaultV}
+                          />
+                          <IconButton title={paramComment}>
+                            <HiInformationCircle />
+                          </IconButton>
+                        </>
+                      ) : null}
+                    </Box>
+                  </Box>
                 </React.Fragment>
               );
             })}
