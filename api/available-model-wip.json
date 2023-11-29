@@ -1,0 +1,77 @@
+{
+    "available-model": [
+        {
+            "name": "DBSCAN",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": [
+                {"name": "eps", "default": "0.5", "dtype": "float", "comment": "The maximum distance between two samples for one to be considered as in the neighborhood of the other. This is not a maximum bound on the distances of points within a cluster. This is the most important DBSCAN parameter to choose appropriately for your data set and distance function."},
+                {"name": "min_samples", "default": "5", "dtype": "int", "comment": "The number of samples (or total weight) in a neighborhood for a point to be considered as a core point. This includes the point itself. If min_samples is set to a higher value, DBSCAN will find denser clusters, whereas if it is set to a lower value, the found clusters will be more sparse."},
+                {"name": "metric", "default": "euclidean", "dtype": "str", "comment": "The metric to use when calculating distance between instances in a feature array."},
+                {"name": "metric_params", "default": "None", "dtype": "dict", "comment": "Additional keyword arguments for the metric function."},
+                {"name": "algorithm", "default": "auto", "dtype": "str", "comment": "The algorithm to be used by the NearestNeighbors module to compute pointwise distances and find nearest neighbors. See NearestNeighbors module documentation for details."},
+                {"name": "leaf_size", "default": "30", "dtype": "int", "comment": "Leaf size passed to BallTree or cKDTree. This can affect the speed of the construction and query, as well as the memory required to store the tree. The optimal value depends on the nature of the problem."},
+                {"name": "p", "default": "None", "dtype": "float", "comment": "The power of the Minkowski metric to be used to calculate distance between points. If None, then p=2 (equivalent to the Euclidean distance)."},
+                {"name": "n_jobs", "default": "-1", "dtype": "int", "comment": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors."}
+            ],
+            "return": [
+                {"name": "labels_", "dtype": "array", "comment": "Cluster labels for each point in the dataset given to fit(). Noisy samples are given the label -1."}
+            ]
+        },
+        {
+            "name": "Birch",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical data",
+            "params": [
+                {"name": "threshold", "default": "0.5", "dtype": "float", "comment": "The radius of the subcluster obtained by merging a new sample and the closest subcluster should be lesser than the threshold. Setting this value to be very low promotes splitting and vice-versa."},
+                {"name": "branching_factor", "default": "50", "dtype": "int", "comment": "Maximum number of CF subclusters in each node. If a new sample enters such that the number of subclusters exceeds the branching_factor, then that node is split into two nodes with the subclusters redistributed in each."},
+                {"name": "clusters", "default": "30", "dtype": "int, None", "comment": "Number of clusters after the final clustering step, which treats the subclusters from the leaves as new samples. If None, the final clustering step is not performed, and the subclusters are returned as they are."},
+                {"name": "compute_labels", "default": "True", "dtype": "bool", "comment": "Whether or not to compute labels for each fit."},
+                {"name": "copy", "default": "True", "dtype": "bool", "comment": "Whether or not to make a copy of the given data. If set to False, the initial data will be overwritten."}
+            ],
+            "return": [
+                {"name": "Set of clusters", "dtype": "dict"}
+            ]
+        },
+        {
+            "name": "IsolationForest",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical and binary data",
+            "description": "Isolation Forest is an ensemble algorithm for anomaly detection that isolates observations by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature.",
+            "params": [
+                {"name": "n_estimators", "default": "100", "dtype": "int", "description": "The number of base estimators in the ensemble. Increasing the number of estimators will generally improve the performance but will also increase the computation time."},
+                {"name": "max_samples", "default": "auto", "dtype": "int, float", "description": "The number of samples to draw from the input data to train each base estimator. If 'auto', then max_samples is set to the size of the input data. Increasing max_samples will result in a more robust model but may also increase the training time."},
+                {"name": "contamination", "default": "auto", "dtype": "float or auto", "description": "The amount of contamination in the dataset. It represents the proportion of outliers in the dataset. If 'auto', it is set to the empirical contamination estimate, which is the proportion of samples that are outliers."},
+                {"name": "max_features", "default": "1.0", "dtype": "float", "description": "The number of features to draw from the input data to train each base estimator. If 1.0, it uses all features for each base estimator. Smaller values may reduce overfitting."},
+                {"name": "bootstrap", "default": "False", "dtype": "bool", "description": "If true, individual trees are fit on bootstrap samples of the input data. If false, the entire dataset is used to build each tree. Setting this parameter to true may improve performance."},
+                {"name": "n_jobs", "default": "-1", "dtype": "int", "description": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. More jobs may result in faster execution but also increase memory consumption."},
+                {"name": "random_state", "default": "None", "dtype": "int", "description": "Controls the randomness of the estimator. If int, random_state is the seed used by the random number generator; if None, the random number generator is the RandomState instance used by np.random."},
+                {"name": "verbose", "default": "0", "dtype": "int", "description": "Controls the verbosity of the output during training. If 0, no output; if 1, some progress information; if greater than 1, the computation time for each tree is displayed."},
+                {"name": "warm_start", "default": "False", "dtype": "bool", "description": "If true, reuse the solution of the previous call to fit and add more estimators to the ensemble; otherwise, start with a new ensemble. Enabling warm_start can be useful for incremental training."}
+            ],
+            "return": [
+                {"name": "selected", "dtype": "various parameters", "description": "The details of the selected features and splits for each base estimator in the ensemble."}
+            ]
+        },
+        {
+            "name": "KMeans",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": [
+                {"name": "n_clusters", "default": "8", "dtype": "int", "comment": "The number of clusters to form as well as the number of centroids to generate."},
+                {"name": "init", "default": "k-means++", "dtype": "str", "comment": "Method for initialization."},
+                {"name": "n_init", "default": "10", "dtype": "int", "comment": "Number of times the k-means algorithm is run with different centroid seeds."},
+                {"name": "max_iter", "default":" 300", "dtype": "int", "comment": "Maximum number of iterations of the k-means algorithm for a single run."},
+                {"name": "tol", "default": "0.0001", "dtype": "float", "comment": "Relative tolerance with regards to Frobenius norm of the difference in the cluster centers of two consecutive iterations to declare convergence."},
+                {"name": "verbose", "default": "0", "dtype": "int", "comment": "Verbosity mode."},
+                {"name": "random_state", "default": "None", "dtype": "int, RandomState instance or None", "comment": "Determines random number generation for centroid initialization."},
+                {"name": "copy_x", "default": "True", "dtype": "bool", "comment": "When pre-computing distances, it is more numerically accurate to center the data first."},
+                {"name": "algorithm", "default": "lloyd", "dtype": "str", "comment": "K-means algorithm to use. Possible values: 'lloyd' or 'elkan'."}
+            ],
+            "return": [
+                {"name": "labels_", "dtype": "array", "comment": "Labels of each point."},
+                {"name": "cluster_centers_", "dtype": "array", "comment": "Coordinates of cluster centers."}
+            ]
+        }
+    ]
+}

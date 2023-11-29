@@ -1,8 +1,9 @@
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, Lasso
 from sklearn.svm import SVC, SVR
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier, GradientBoostingRegressor
 from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 
 from sklearn.model_selection import train_test_split
 
@@ -26,7 +27,10 @@ model_dict = {
     "RandomForestClassifier": RandomForestClassifier(),
     "RandomForestRegressor": RandomForestRegressor(),
     "KNeighborsClassifier": KNeighborsClassifier(),
-    "KNeighborsRegressor": KNeighborsRegressor()
+    "KNeighborsRegressor": KNeighborsRegressor(),
+    "GaussianNB": GaussianNB(),
+    "GradientBoostingClassifier": GradientBoostingClassifier(),
+    "GradientBoostingRegressor": GradientBoostingRegressor()
 }
 def convert_dtype(value, dtype):
     if value == 'None':
