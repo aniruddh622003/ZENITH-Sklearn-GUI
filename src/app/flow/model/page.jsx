@@ -11,6 +11,8 @@ import {
   Radio,
   IconButton,
   Tooltip,
+  CircularProgress,
+  Collapse,
 } from "@mui/material";
 import TextBox from "@/components/TextBox";
 import { HiInformationCircle } from "react-icons/hi";
@@ -46,6 +48,8 @@ const ModelPage = () => {
   const [data, setData] = useState(null);
   const [paramValue, setParamValue] = useState([]);
   const [selectedModelParameters, setSelectedModelParameters] = useState(null);
+  const [graph, setGraph] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchParam() {
@@ -72,6 +76,7 @@ const ModelPage = () => {
     let x = data?.filter((ele) => ele.name == selectedModel)?.[0];
     console.log(x, x?.params);
     setSelectedModelParameters(x?.params);
+    setGraph(null);
   }, [data, selectedModel]);
 
   useEffect(() => {
@@ -82,6 +87,8 @@ const ModelPage = () => {
   }, [selectedModelParameters]);
 
   const startTrain = async () => {
+    setLoading(true);
+    setGraph(null);
     try {
       const resp = await fetch("/api/start-train", {
         method: "POST",
@@ -89,11 +96,12 @@ const ModelPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: selectedModel,
+          name: selectedModel,
           params: paramValue.map((ele) => {
             return {
               name: ele.name,
               value: ele.default,
+              dtype: ele.dtype
             };
           }),
         }),
@@ -101,12 +109,14 @@ const ModelPage = () => {
       if (resp.status == 200) {
         const dataF = await resp.json();
         console.log(dataF);
+        setGraph(dataF["graph"]);
       } else {
         //error
       }
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -134,9 +144,9 @@ const ModelPage = () => {
             pr="10px"
           >
             <Button variant="contained" onClick={startTrain}>
-              Start Train
+              Run Model
             </Button>
-            <Button variant="contained">Test Model</Button>
+            {/* <Button variant="contained">Test Model</Button> */}
           </Box>
           <Box
             display="flex"
@@ -147,7 +157,8 @@ const ModelPage = () => {
               flex: 0.6,
             }}
           >
-            <div style={{ fontSize: "10vw" }}>Graph</div>
+            {loading && <CircularProgress />}
+            {graph && <img style={{width: '100%'}} src={`data:image/png;base64, ${graph}`} />}
           </Box>
         </Box>
       </Grid>

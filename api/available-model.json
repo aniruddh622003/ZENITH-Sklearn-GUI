@@ -25,7 +25,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "null",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of jobs to use for the computation. This will only provide speedup in case of sufficiently large problems, that is if firstly n_targets > 1 and secondly X is sparse or if positive is set to True. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details."
         }
@@ -61,7 +61,7 @@
           "comment": "Specify the norm of the penalty. 'l2': L2 penalty term (default), 'l1': L1 penalty term, 'elasticnet': both L1 and L2 penalty terms. 'None': no penalty added. Deprecated since version 1.2; use None instead."
         },
         { "name": "dual", "default": "False", "dtype": "bool" },
-        { "name": "tol", "default": "1e-4", "dtype": "float" },
+        { "name": "tol", "default": "0.0001", "dtype": "float" },
         { "name": "intercept_scaling", "default": "1", "dtype": "float" },
         {
           "name": "class_weight",
@@ -106,7 +106,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "Number of CPU cores used when parallelizing over classes if multi_class='ovr'."
         },
@@ -167,7 +167,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-4",
+          "default": "0.0001",
           "dtype": "float",
           "comment": "The precision of the solution is determined by tol, which specifies a different convergence criterion for each solver."
         },
@@ -245,7 +245,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-4",
+          "default": "0.0001",
           "dtype": "float",
           "comment": "The tolerance for the optimization: if the updates are smaller than tol, the optimization code checks the dual gap for optimality and continues until it is smaller than tol."
         },
@@ -361,7 +361,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-3",
+          "default": "0.001",
           "dtype": "float",
           "comment": "Tolerance for stopping criterion."
         },
@@ -667,7 +667,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of jobs to run in parallel."
         },
@@ -794,7 +794,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of jobs to run in parallel."
         },
@@ -897,7 +897,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of parallel jobs to run for neighbors search."
         }
@@ -959,7 +959,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of parallel jobs to run for neighbors search."
         }
@@ -1008,7 +1008,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-4",
+          "default": "0.0001",
           "dtype": "float",
           "comment": "Relative tolerance with regards to Frobenius norm of the difference in the cluster centers of two consecutive iterations to declare convergence."
         },
@@ -1069,7 +1069,7 @@
         },
         {
           "name": "var_smoothing",
-          "default": "1e-9",
+          "default": "0.000000001",
           "dtype": "float",
           "comment": "Portion of the largest variance of all features that is added to variances for calculation stability. New in version 0.20."
         }
@@ -1195,7 +1195,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-4",
+          "default": "0.0001",
           "dtype": "float",
           "comment": "Tolerance for the early stopping. When the loss is not improving by at least tol for n_iter_no_change iterations, the training stops. Values must be in the range [0.0, inf). New in version 0.20."
         },
@@ -1342,7 +1342,7 @@
         },
         {
           "name": "tol",
-          "default": "1e-4",
+          "default": "0.0001",
           "dtype": "float",
           "comment": "Tolerance for the early stopping. When the loss is not improving by at least tol for n_iter_no_change iterations, the training stops. Values must be in the range [0.0, inf). New in version 0.20."
         },
@@ -1536,7 +1536,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "None",
+          "default": "-1",
           "dtype": "int",
           "comment": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors."
         }
@@ -1625,7 +1625,7 @@
         },
         {
           "name": "n_jobs",
-          "default": "N    one",
+          "default": "-1",
           "dtype": "int",
           "description": "The number of parallel jobs to run. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. More jobs may result in faster execution but also increase memory consumption."
         },

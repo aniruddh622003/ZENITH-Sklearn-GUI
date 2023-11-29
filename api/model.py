@@ -12,6 +12,8 @@ import seaborn as sns
 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, confusion_matrix, classification_report
 
+import ast
+
 model_dict = {
     "LinearRegression": LinearRegression(),
     "LogisticRegression": LogisticRegression(),
@@ -26,6 +28,31 @@ model_dict = {
     "KNeighborsClassifier": KNeighborsClassifier(),
     "KNeighborsRegressor": KNeighborsRegressor()
 }
+def convert_dtype(value, dtype):
+    if value == 'None':
+        return None
+    if dtype == 'int':
+        return int(value)
+
+    elif dtype == 'float':
+        return float(value)
+
+    elif dtype == 'bool':
+        return True if value == 'True' else False
+    
+    elif dtype == 'tuple':
+        return ast.literal_eval(value)
+
+    else:
+        return 'err'  # If no matching dtype is found, return the value as is, this is string
+
+def set_model(model_pipeline):
+    model = model_dict[model_pipeline[1]['name']]
+    for param in model_pipeline[1]['params']:
+        curr_param = convert_dtype(param['value'], param['dtype'])
+        if curr_param != 'err':
+            model.set_params(**{param['name']: curr_param})
+    return model
 
 def load_data(data_path, output_col, test_size, random_state):
     df = pd.read_csv(data_path)
@@ -34,7 +61,8 @@ def load_data(data_path, output_col, test_size, random_state):
     return X_train, X_test, y_train, y_test
 
 def train_model(model_pipeline, X_train, y_train):
-    model = model_dict[model_pipeline[1]['name']]
+    model = set_model(model_pipeline)
+    print(model, flush=True)
     model.fit(X_train, y_train)
 
     return model
@@ -82,6 +110,26 @@ def plot_graph(model, X_test, y_test, model_type):
         plt.savefig('./api/outputs/graph.png', bbox_inches='tight', dpi=300)
 
 def run_model_train(model_pipeline):
+    with open('./api/uploads/output.txt', 'r') as file:
+        output_col = file.read()
+    model_pipeline = [{
+        "name": "TrainTestSplit",
+        "params": [
+            {
+                "name": "test_size",
+                "value": 0.2
+            },
+            {
+                "name": "random_state",
+                "value": 42
+            },
+            {
+                "name": "output",
+                "value": output_col
+            }
+        ]
+    }] + [model_pipeline]
+
     classifiers = ('LogisticRegression', 'SVC', 'DecisionTreeClassifier', 'RandomForestClassifier', 'KNeighborsClassifier')
     regressors = ('LinearRegression', 'Ridge', 'Lasso', 'SVR', 'DecisionTreeRegressor', 'RandomForestRegressor', 'KNeighborsRegressor')
     model_type = 'classification' if model_pipeline[1]['name'] in classifiers else 'regression'

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 import json
 from api.model import run_model_train
@@ -7,6 +7,8 @@ import os
 import pandas as pd
 from preprocessing import apply_pipeline
 from helper import preprocess_data
+import base64
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 CORS(app)
@@ -35,11 +37,14 @@ def preprocess_data_route():
     
 @app.route("/api/start-train", methods=["POST"])
 def start_train_route():
-    x = request.get_json()
-    run_model_train(x)
-    return jsonify({"message": x})
-
-
+    try:
+        x = request.get_json()
+        run_model_train(x)
+        with open('api/outputs/graph.png', 'rb') as f:
+            x = base64.b64encode(f.read())
+        return jsonify({"message": "Sucessfully Trained Model", "graph": x.decode('utf-8')})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/available-models", methods=["GET"])
 def get_available_models():

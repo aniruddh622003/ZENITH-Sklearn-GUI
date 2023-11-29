@@ -47,7 +47,7 @@ def convert_dtype(value, dtype):
         return ast.literal_eval(value)
 
     else:
-        return value  # If no matching dtype is found, return the value as is, this is string
+        return 'err'  # If no matching dtype is found, return the value as is, this is string
 
 # this function returns the columns that are allowed for the preprocessing object
 def get_allowed_columns(df, preprocess):
@@ -58,7 +58,9 @@ def set_preprocess(preprocessing):
     preprocess = preprocess_dict[preprocessing['name']]
     for param in preprocessing['params']:
         # Set the parameter value using set_params
-        preprocess.set_params(**{param['name']: convert_dtype(param['value'], param['dtype'])})
+        curr_param = convert_dtype(param['value'], param['dtype'])
+        if curr_param != 'err':
+            preprocess.set_params(**{param['name']: curr_param})
     return preprocess
 
 # this function applies the preprocessing to the dataframe

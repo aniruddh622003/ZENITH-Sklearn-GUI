@@ -111,11 +111,7 @@
         {
             "name": "LabelEncoder",
             "params": [
-                {"name": "neg_label", "default": "0", "dtype": "int", "comment": "Value with which negative labels must be encoded."},
-                {"name": "pos_label", "default": "1", "dtype": "int", "comment": "Value with which positive labels must be encoded."},
-                {"name": "sparse_output", "default": "False", "dtype": "bool", "comment": "True if the returned array from transform is desired to be in sparse CSR format."},
-                {"name": "classes", "dtype": "array-like of shape (n_classes,)", "default": "None", "comment": "Indicates an ordering for the class labels. All entries should be unique (cannot contain duplicate classes)."}
-            ]
+                ]
         },
         {
             "name": "PowerTransformer",
