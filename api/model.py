@@ -81,7 +81,7 @@ def plot_graph(model, X_test, y_test, model_type):
 
         plt.savefig('./api/outputs/graph.png', bbox_inches='tight', dpi=300)
 
-def run(model_pipeline):
+def run_model_train(model_pipeline):
     classifiers = ('LogisticRegression', 'SVC', 'DecisionTreeClassifier', 'RandomForestClassifier', 'KNeighborsClassifier')
     regressors = ('LinearRegression', 'Ridge', 'Lasso', 'SVR', 'DecisionTreeRegressor', 'RandomForestRegressor', 'KNeighborsRegressor')
     model_type = 'classification' if model_pipeline[1]['name'] in classifiers else 'regression'

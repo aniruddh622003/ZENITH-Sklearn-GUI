@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
+from api.model import run_model_train
 from helper import allowed_file, upload_and_process_file
 import os
 import pandas as pd
@@ -31,6 +32,13 @@ def preprocess_data_route():
         return jsonify({"message": "Sucessfully Pre-processed Data"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/api/start-train", methods=["POST"])
+def start_train_route():
+    x = request.get_json()
+    run_model_train(x)
+    return jsonify({"message": x})
+
 
 
 @app.route("/api/available-models", methods=["GET"])

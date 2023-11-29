@@ -85,6 +85,9 @@ const ModelPage = () => {
     try {
       const resp = await fetch("/api/start-train", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           model: selectedModel,
           params: paramValue.map((ele) => {
