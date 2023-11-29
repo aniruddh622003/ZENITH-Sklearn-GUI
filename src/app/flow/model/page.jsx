@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   Radio,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import TextBox from "@/components/TextBox";
 import { HiInformationCircle } from "react-icons/hi";
@@ -43,7 +44,7 @@ const ModelPage = () => {
   const [selectedModel, setSelectedModel] = useState(options[0]);
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState(null);
-  const [paramValue, setParamValue] = useState("");
+  const [paramValue, setParamValue] = useState([]);
   const [selectedModelParameters, setSelectedModelParameters] = useState(null);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const ModelPage = () => {
           const dataF = await resp.json();
           console.log(dataF["available-model"]);
           setData(dataF["available-model"]);
-          setSelectedModel(data[0].name);
+          setSelectedModel(dataF["available-model"][0].name);
         } else {
           //error
         }
@@ -72,6 +73,38 @@ const ModelPage = () => {
     console.log(x, x?.params);
     setSelectedModelParameters(x?.params);
   }, [data, selectedModel]);
+
+  useEffect(() => {
+    console.log("a", selectedModelParameters);
+    if (selectedModelParameters) {
+      setParamValue(selectedModelParameters);
+    }
+  }, [selectedModelParameters]);
+
+  const startTrain = async () => {
+    try {
+      const resp = await fetch("/api/start-train", {
+        method: "POST",
+        body: JSON.stringify({
+          model: selectedModel,
+          params: paramValue.map((ele) => {
+            return {
+              name: ele.name,
+              value: ele.default,
+            };
+          }),
+        }),
+      });
+      if (resp.status == 200) {
+        const dataF = await resp.json();
+        console.log(dataF);
+      } else {
+        //error
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Grid container spacing={4}>
@@ -97,7 +130,9 @@ const ModelPage = () => {
             py="25px"
             pr="10px"
           >
-            <Button variant="contained">Start Train</Button>
+            <Button variant="contained" onClick={startTrain}>
+              Start Train
+            </Button>
             <Button variant="contained">Test Model</Button>
           </Box>
           <Box
@@ -122,13 +157,19 @@ const ModelPage = () => {
           {/* {data && console.log(data?.[value]?.Parameters)}
           {data &&
             Object.entries(data?.[value]?.Parameters)?.map((k) => { */}
-          {selectedModelParameters &&
-            selectedModelParameters?.map((k) => {
-              console.log(k);
+          {paramValue &&
+            paramValue?.map((k) => {
+              // console.log(k);
               const paramName = k.name;
               const paramType = k.dtype;
               const paramComment = k.comment;
               const defaultV = k.default;
+              if (paramName == "n_jobs") {
+                return;
+              }
+              if (defaultV == "None") {
+                return;
+              }
               return (
                 <React.Fragment key={paramName}>
                   <Box
@@ -158,41 +199,41 @@ const ModelPage = () => {
                             <InputLabel sx={{ fontSize: "small" }}>
                               {paramName}
                             </InputLabel>
-                            <FormControlLabel
-                              control={
-                                <Radio
-                                  checked={
-                                    paramValue[paramName] == true ||
-                                    paramValue[paramName] == undefined
-                                  }
-                                  onChange={() =>
-                                    setParamValue((prevValues) => ({
-                                      ...prevValues,
-                                      [paramName]: !prevValues[paramName],
-                                    }))
-                                  }
+                            {console.log("b", paramValue)}
+                            <RadioGroup
+                              value={defaultV}
+                              onChange={(e) => {
+                                console.log(e.target.value);
+                                setParamValue((prev) => {
+                                  let x = prev.map((ele) => {
+                                    if (ele.name == paramName) {
+                                      ele.default = e.target.value;
+                                    }
+                                    return ele;
+                                  });
+                                  return x;
+                                });
+                              }}
+                            >
+                              <Box sx={{ display: "flex" }}>
+                                <FormControlLabel
+                                  control={<Radio />}
+                                  label="True"
+                                  value="True"
                                 />
-                              }
-                              label="True"
-                            />
-                            <FormControlLabel
-                              control={
-                                <Radio
-                                  checked={paramValue[paramName] == false}
-                                  onChange={() =>
-                                    setParamValue((prevValues) => ({
-                                      ...prevValues,
-                                      [paramName]: !prevValues[paramName],
-                                    }))
-                                  }
+                                <FormControlLabel
+                                  control={<Radio />}
+                                  label="False"
+                                  value="False"
                                 />
-                              }
-                              label="False"
-                            />
+                              </Box>
+                            </RadioGroup>
                           </Box>
-                          <IconButton title={paramComment}>
-                            <HiInformationCircle />
-                          </IconButton>
+                          <Tooltip title={paramComment}>
+                            <IconButton>
+                              <HiInformationCircle />
+                            </IconButton>
+                          </Tooltip>
                         </>
                       ) : paramType === "int" ||
                         paramType === "float" ||
@@ -206,7 +247,18 @@ const ModelPage = () => {
                                 ? "number"
                                 : "text"
                             }
-                            defaultValue={defaultV}
+                            value={defaultV}
+                            onChange={(e) => {
+                              setParamValue((prev) => {
+                                let x = prev.map((ele) => {
+                                  if (ele.name == paramName) {
+                                    ele.default = e.target.value;
+                                  }
+                                  return ele;
+                                });
+                                return x;
+                              });
+                            }}
                           />
                           <IconButton title={paramComment}>
                             <HiInformationCircle />
