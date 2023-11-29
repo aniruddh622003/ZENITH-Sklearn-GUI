@@ -3,7 +3,6 @@ from sklearn.impute import SimpleImputer
 import pandas as pd
 import numpy as np
 import ast
-from flask import request
 
 # this dictionary contains the preprocessing objects
 preprocess_dict = {
@@ -77,7 +76,6 @@ def apply_preprocessing(df, selected_preprocessing):
     return df
 
 def apply_pipeline(preprocess_pipeline):
-    print(preprocess_pipeline)
     df = pd.read_csv('api/uploads/data.csv')
     df = apply_preprocessing(df, preprocess_pipeline)
     df.to_csv('api/uploads/data_preprocessed.csv', index=False)

@@ -1,0 +1,251 @@
+{
+    "available-model": [
+        {
+            "name": "LinearRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "coef_", "dtype": "array" },
+                {"name": "intercept_", "dtype": "float"}
+            ]
+        },
+        {
+            "name": "LogisticRegression",
+            "task": "Classification",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "coef_", "dtype": "array"},
+                {"name": "intercept_", "dtype": "float"}
+            ]
+        },
+        {
+            "name": "RidgeRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "coef_", "dtype": "array"},
+                {"name": "intercept_", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "n_iter", "dtype": "None or ndarray of shape (n_targets,)"},
+                {"name": "n_features_in", "dtype": "int"},
+                {"name": "feature_names_in", "dtype": "ndarray of shape (n_features_in_,)"}
+            ]
+        },
+        {
+            "name": "LassoRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "coef_", "dtype": "array"},
+                {"name": "dual_gap", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "sparse_coef", "dtype": "sparse matrix of shape (n_features, 1) or (n_targets, n_features)"},
+                {"name": "intercept_", "dtype": "float or ndarray of shape (n_targets,)"},
+                {"name": "n_iter", "dtype": "int or list of int"},
+                {"name": "n_features_in", "dtype": "int"},
+                {"name": "feature_names_in", "dtype": "ndarray of shape (n_features_in_,)"}
+            ]
+        },
+        {
+            "name": "Svm",
+            "task": "Both",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "support_", "dtype": "array"},
+                {"name": "dual_coef_", "dtype": "array"},
+                {"name": "intercept_", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "DecisionTree",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"},
+                {"name": "predict_proba", "dtype": "array"},
+                {"name": "max_leaf_nodes", "dtype": "int"}
+            ]
+        },
+        {
+            "name": "DecisionTreeClassification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"},
+                {"name": "predict_proba", "dtype": "array"},
+                {"name": "max_leaf_nodes", "dtype": "int"}
+            ]
+        },
+        {
+            "name": "RandomForest",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"},
+                {"name": "predict_proba", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "RandomForestClassification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"},
+                {"name": "predict_proba", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "KnnRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "KnnClassification",
+            "task": "Classification",
+            "data": "Supervised, binary data",
+            "params": [
+            ],
+            "return": [
+                {"name": "predict", "dtype": "array"},
+                {"name": "predict_proba", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "KMeansClustering",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "labels_", "dtype": "array"},
+                {"name": "cluster_centers_", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "NaïveBayesClassification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": [
+            ],
+            "return": [
+                {"name": "class_log_prior_", "dtype": "array"},
+                {"name": "class_count_", "dtype": "array"},
+                {"name": "feature_count_", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "GradientBoostingRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "estimators_", "dtype": "array of objects"},
+                {"name": "feature_importances_", "dtype": "ndarray of shape (n_features,)"},
+                {"name": "oob_improvement_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_scores_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_score_", "dtype": "float"},
+                {"name": "train_score_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "init_estimator_", "dtype": "estimator"},
+                {"name": "estimators_", "dtype": "ndarray of DecisionTreeRegressor of shape (n_estimators, 1)"},
+                {"name": "n_estimators_", "dtype": "int"},
+                {"name": "n_features_in_", "dtype": "int"},
+                {"name": "feature_names_in_", "dtype": "ndarray of shape (n_features_in_,)"},
+                {"name": "max_features_", "dtype": "int"}
+            ]
+        },
+        {
+            "name": "GradientBoostingClassification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": [
+            ],
+            "return": [
+                {"name": "estimators_", "dtype": "array of objects"},
+                {"name": "feature_importances_", "dtype": "ndarray of shape (n_features,)"},
+                {"name": "oob_improvement_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_scores_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "oob_score_", "dtype": "float"},
+                {"name": "train_score_", "dtype": "ndarray of shape (n_estimators,)"},
+                {"name": "init_estimator_", "dtype": "estimator"},
+                {"name": "estimators_", "dtype": "ndarray of DecisionTreeRegressor of shape (n_estimators, loss_.K)"},
+                {"name": "classes_", "dtype": "ndarray of shape (n_classes,)"},
+                {"name": "n_features_in_", "dtype": "int"},
+                {"name": "feature_names_in_", "dtype": "ndarray of shape (n_features_in_,)"},
+                {"name": "n_classes_", "dtype": "int"},
+                {"name": "max_features_", "dtype": "int"}
+            ]
+        },
+        {
+            "name": "XgboostRegression",
+            "task": "Regression",
+            "data": "Supervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "Booster", "dtype": "object"}
+            ]
+        },
+        {
+            "name": "XgboostClassification",
+            "task": "Classification",
+            "data": "Supervised, binary or multiclass data",
+            "params": [
+            ],
+            "return": [
+                {"name": "Booster", "dtype": "object"}
+            ]
+        },
+        {
+            "name": "DbscanClustering",
+            "task": "Unsupervised",
+            "data": "Numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "labels_", "dtype": "array"}
+            ]
+        },
+        {
+            "name": "BirchAlgorithm",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical data",
+            "params": [
+            ],
+            "return": [
+                {"name": "Set of clusters", "dtype": "including centroids and covariance matrices"}
+            ]
+        },
+        {
+            "name": "IsolationForest",
+            "task": "Clustering",
+            "data": "Unsupervised, numerical and binary data",
+            "params": [
+            ],
+            "return": [
+                {"name": "selected", "dtype": "various parameters"}
+            ]
+        }
+    ]
+}
