@@ -14,7 +14,7 @@ import ReactFlow, {
 
 import "reactflow/dist/style.css";
 import NodePanel from "./panel";
-import { Button } from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 
 const initialNodes = [
   {
@@ -35,6 +35,21 @@ const initialNodes = [
   },
 ];
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  outline: 0,
+  border: 0,
+  borderRadius: "15px",
+};
+
 let id = 3;
 const getId = () => `${id++}`;
 
@@ -45,6 +60,9 @@ export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const [modalNode, setModalNode] = useState(null);
 
   const onConnect = useCallback(
     (params) => {
@@ -89,7 +107,7 @@ export default function App() {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, setNodes]
   );
 
   const startPreProcess = async () => {
@@ -101,14 +119,15 @@ export default function App() {
 
       outnodes.push({
         name: out[0]?.data?.label,
-        params: out[0]?.data?.params?.map(ele => {
-          let out = {
-          ...ele,
-          value: ele.default
-        }
-        delete out.default
-        return out
-      }) ?? "",
+        params:
+          out[0]?.data?.params?.map((ele) => {
+            let out = {
+              ...ele,
+              value: ele.default,
+            };
+            delete out.default;
+            return out;
+          }) ?? "",
       });
       n = out[0];
     }
@@ -122,35 +141,66 @@ export default function App() {
     });
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onNodeDblClick = (event, node) => {
+    console.log(node);
+    if (node.type === "input" || node.type === "output") return;
+    setModalNode(node);
+    setOpen(true);
+  };
+
   return (
-    <ReactFlowProvider>
-      <div style={{ width: "100%", height: "100%" }} ref={reactFlowWrapper}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onInit={setReactFlowInstance}
-          fitView
-        >
-          <Controls />
-          <MiniMap pannable={true} />
-          <Background variant="dots" gap={12} size={1} />
-          <Panel>
-            <NodePanel />
-            <Button
-              onClick={startPreProcess}
-              variant="contained"
-              sx={{ width: "100%", mt: "10px" }}
-            >
-              Submit
-            </Button>
-          </Panel>
-        </ReactFlow>
-      </div>
-    </ReactFlowProvider>
+    <Box style={{ width: "100%", height: "100%" }}>
+      <ReactFlowProvider>
+        <div style={{ width: "100%", height: "100%" }} ref={reactFlowWrapper}>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onInit={setReactFlowInstance}
+            onNodeDoubleClick={(event, node) => {
+              onNodeDblClick(event, node);
+            }}
+            fitView
+          >
+            <Controls />
+            <MiniMap pannable={true} />
+            <Background variant="dots" gap={12} size={1} />
+            <Panel>
+              <NodePanel />
+              <Button
+                onClick={startPreProcess}
+                variant="contained"
+                sx={{ width: "100%", mt: "10px" }}
+              >
+                Submit
+              </Button>
+            </Panel>
+          </ReactFlow>
+        </div>
+      </ReactFlowProvider>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {modalNode?.data?.label}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+    </Box>
   );
 }
