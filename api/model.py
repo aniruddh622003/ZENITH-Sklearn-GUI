@@ -73,7 +73,7 @@ def train_model(model_pipeline, X_train, y_train):
     return model
 
 def save_model(model, name = 'my_model'):
-    dump(model, f'uploads\\{name}.joblib')
+    dump(model, f'api\\outputs\\{name}.joblib')
 
 def plot_graph(model, X_test, y_test, model_type):
 

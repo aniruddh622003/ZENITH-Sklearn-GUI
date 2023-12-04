@@ -10,6 +10,7 @@ def convert(X):
             X[i][j] = float(X[i][j])
     return X
 
-def predict(model, X):
+def predict(model_path, X):
+    model = load_model(model_path)
     y_pred = model.predict(X)
     return y_pred
