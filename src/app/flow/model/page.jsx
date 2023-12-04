@@ -119,6 +119,25 @@ const ModelPage = () => {
     setLoading(false);
   };
 
+  const downloadModelWeights = async () => {
+    try {
+      const resp = await fetch("/api/download-weights", {
+        method: "GET",
+      });
+      // Make a downloadable as file
+      const blob = await resp.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "my_model.joblib";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={6}>
@@ -146,7 +165,15 @@ const ModelPage = () => {
             <Button variant="contained" onClick={startTrain}>
               Run Model
             </Button>
-            {/* <Button variant="contained">Test Model</Button> */}
+            <Box>
+              <Button
+                variant="contained"
+                disabled={graph ? false : true}
+                onClick={() => downloadModelWeights()}
+              >
+                Download Model Weights
+              </Button>
+            </Box>
           </Box>
           <Box
             display="flex"

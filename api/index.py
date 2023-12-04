@@ -84,5 +84,9 @@ def upload_and_process_file_route():
 def predict():
     return jsonify({"message": "Sucessfully Predicted"})
 
+@app.route("/api/download-weights", methods=["GET"])
+def download_weights():
+    return send_file('outputs/my_model.joblib', as_attachment=True, download_name="my_model.joblib")
+
 if __name__ == "__main__":
     app.run(port=8000)
