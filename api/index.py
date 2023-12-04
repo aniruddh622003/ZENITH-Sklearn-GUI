@@ -31,7 +31,11 @@ def preprocess_data_route():
             apply_pipeline(preprocessing_pipeline['nodes'][1:-1])
         else:
             apply_pipeline(preprocessing_pipeline['nodes'][1:]) # this should be error as processed data node is not connected to anything
-        return jsonify({"message": "Sucessfully Pre-processed Data"})
+        with open('api/outputs/df_post.png', 'rb') as f:
+            x = base64.b64encode(f.read())
+        with open('api/outputs/df_pre.png', 'rb') as f:
+            y = base64.b64encode(f.read())
+        return jsonify({"message": "Sucessfully Pre-processed Data", "df_post": x.decode('utf-8'), "df_pre": y.decode('utf-8')})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -75,6 +79,14 @@ def dataset_existing():
 @app.route("/api/upload_and_process_file", methods=["POST"])
 def upload_and_process_file_route():
     return upload_and_process_file(app)()
+
+@app.route("/api/predict", methods=["POST"])
+def predict():
+    return jsonify({"message": "Sucessfully Predicted"})
+
+@app.route("/api/download-weights", methods=["GET"])
+def download_weights():
+    return send_file('outputs/my_model.joblib', as_attachment=True, download_name="my_model.joblib")
 
 if __name__ == "__main__":
     app.run(port=8000)

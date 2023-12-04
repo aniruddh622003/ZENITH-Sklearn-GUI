@@ -12,8 +12,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, confusion_matrix, classification_report
-
 import ast
+
+from joblib import dump
 
 model_dict = {
     "LinearRegression": LinearRegression(),
@@ -70,6 +71,9 @@ def train_model(model_pipeline, X_train, y_train):
     model.fit(X_train, y_train)
 
     return model
+
+def save_model(model, name = 'my_model'):
+    dump(model, f'api/outputs/{name}.joblib')
 
 def plot_graph(model, X_test, y_test, model_type):
 
@@ -145,6 +149,7 @@ def run_model_train(model_pipeline):
 
     X_train, X_test, y_train, y_test = load_data(data_path, output_col, test_size, random_state)
     model = train_model(model_pipeline, X_train, y_train)
+    save_model(model)
     plot_graph(model, X_test, y_test, model_type)
 
     return 1
