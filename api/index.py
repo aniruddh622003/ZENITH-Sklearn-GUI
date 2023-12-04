@@ -76,5 +76,9 @@ def dataset_existing():
 def upload_and_process_file_route():
     return upload_and_process_file(app)()
 
+@app.route("/api/predict", methods=["POST"])
+def predict():
+    return jsonify({"message": "Sucessfully Predicted"})
+
 if __name__ == "__main__":
     app.run(port=8000)

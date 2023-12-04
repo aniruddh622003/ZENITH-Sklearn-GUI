@@ -89,7 +89,7 @@ export default function App() {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, setNodes]
   );
 
   const startPreProcess = async () => {
@@ -101,14 +101,15 @@ export default function App() {
 
       outnodes.push({
         name: out[0]?.data?.label,
-        params: out[0]?.data?.params?.map(ele => {
-          let out = {
-          ...ele,
-          value: ele.default
-        }
-        delete out.default
-        return out
-      }) ?? "",
+        params:
+          out[0]?.data?.params?.map((ele) => {
+            let out = {
+              ...ele,
+              value: ele.default,
+            };
+            delete out.default;
+            return out;
+          }) ?? "",
       });
       n = out[0];
     }

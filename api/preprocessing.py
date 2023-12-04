@@ -8,6 +8,7 @@ import numpy as np
 import ast
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import os
 
 # this dictionary contains the preprocessing objects
 preprocess_dict = {
@@ -123,6 +124,8 @@ def save_sf_snapshot(df, loc='api/outputs/', label='default'):
 
 def apply_pipeline(preprocess_pipeline):
     df = pd.read_csv('api/uploads/data.csv')
+    if not os.path.exists('api/outputs'):
+        os.mkdir('api/outputs')
     save_sf_snapshot(df, 'api/outputs/', 'pre')
     df = apply_preprocessing(df, preprocess_pipeline)
     save_sf_snapshot(df, 'api/outputs/', 'post')
