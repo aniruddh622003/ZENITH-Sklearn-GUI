@@ -4,8 +4,6 @@ def load_model(model_path):
     model = load(model_path)
     return model
 
-# [['1.1','1.2', '1.3', '1.4']] to [[1.1, 1.2, 1.3, 1.4]]
-
 def convert(X):
     for i in range(len(X)):
         for j in range(len(X[i])):
