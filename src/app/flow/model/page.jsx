@@ -101,7 +101,7 @@ const ModelPage = () => {
             return {
               name: ele.name,
               value: ele.default,
-              dtype: ele.dtype
+              dtype: ele.dtype,
             };
           }),
         }),
@@ -158,7 +158,12 @@ const ModelPage = () => {
             }}
           >
             {loading && <CircularProgress />}
-            {graph && <img style={{width: '100%'}} src={`data:image/png;base64, ${graph}`} />}
+            {graph && (
+              <img
+                style={{ width: "100%" }}
+                src={`data:image/png;base64, ${graph}`}
+              />
+            )}
           </Box>
         </Box>
       </Grid>

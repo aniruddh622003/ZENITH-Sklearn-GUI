@@ -87,7 +87,7 @@ def save_sf_snapshot(df, loc='api/outputs/', label='default'):
     df_head = df.head(8)
     df_describe = df.describe().round(4).reset_index()  # round to 4 decimal places
 
-    fig = plt.figure(figsize=(13, 2))
+    fig = plt.figure(figsize=(15, 2))
 
     gs = gridspec.GridSpec(1, 2, width_ratios=[5, 6])  # specify width ratios
 
@@ -122,8 +122,15 @@ def save_sf_snapshot(df, loc='api/outputs/', label='default'):
 
     plt.savefig(f'{loc}df_{label}.png')
 
+def remove_id_columns(df):
+    for col in df.columns:
+        if 'id' == col.lower():
+            df.drop(col, axis=1, inplace=True)
+    return df
+
 def apply_pipeline(preprocess_pipeline):
     df = pd.read_csv('api/uploads/data.csv')
+    df = remove_id_columns(df)
     if not os.path.exists('api/outputs'):
         os.mkdir('api/outputs')
     save_sf_snapshot(df, 'api/outputs/', 'pre')
