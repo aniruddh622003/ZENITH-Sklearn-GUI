@@ -5,7 +5,9 @@ from werkzeug.utils import secure_filename
 import json
 from preprocessing import apply_pipeline
 from flask import jsonify
-
+dataset_present = False
+existing_num_rows = 0
+existing_num_columns = 0
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
 def preprocess_data():
